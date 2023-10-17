@@ -1,7 +1,12 @@
-import React from "react";
+import ParticlesBg from "./particles-bg";
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <ParticlesBg />
+      hello
+    </div>
+  );
 }
 
 export default Home;
