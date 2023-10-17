@@ -3,6 +3,10 @@
   "background": {
     "color": "#000"
   },
+  "fullScreen": {
+    "enable": true,
+    "zIndex": -1
+  },
   "interactivity": {
     "events": {
       "onClick": { "enable": true, "mode": "push" },

@@ -4,7 +4,7 @@ function Home() {
   return (
     <div>
       <ParticlesBg />
-      hello
+      <h1 style={{ color: "white" }}>Home</h1>
     </div>
   );
 }
