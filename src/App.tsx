@@ -1,5 +1,7 @@
+import { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./views/home";
+
+const Home = lazy(() => import("./views/home"));
 
 function App() {
   return (
