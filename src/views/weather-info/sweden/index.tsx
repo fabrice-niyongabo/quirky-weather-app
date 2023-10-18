@@ -21,10 +21,10 @@ function Sweden(props: IProps) {
     if (!props.swedenCity) return;
     //fetching images only if sweden city in the params is defferent from the store
     if (swedenCity !== props.swedenCity) {
-      fetchImages();
+      fetchCityImages();
       dispatch(setSwedenCity(props.swedenCity));
     } else if (swedenCityImages.length === 0) {
-      fetchImages();
+      fetchCityImages();
     }
   }, [props.swedenCity]);
 
@@ -47,15 +47,20 @@ function Sweden(props: IProps) {
     };
   }, []);
 
-  const fetchImages = async () => {
-    const imageReq = await fetch(
-      `https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_UN_SPLASH_ACCESS_KEY}&query=${props.swedenCity}`
-    );
-    const response = await imageReq.json();
-    if (response?.results) {
-      dispatch(setSwedenCityImages(response.results));
-    } else {
-      dispatch(setSwedenCityImages([]));
+  const fetchCityImages = async () => {
+    try {
+      const imageReq = await fetch(
+        `https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_UN_SPLASH_ACCESS_KEY}&query=${props.swedenCity}`
+      );
+      const response = await imageReq.json();
+      if (response?.results) {
+        dispatch(setSwedenCityImages(response.results));
+      } else {
+        dispatch(setSwedenCityImages([]));
+      }
+    } catch (error) {
+      //error while fetching city images
+      console.log({ error });
     }
   };
   return (
