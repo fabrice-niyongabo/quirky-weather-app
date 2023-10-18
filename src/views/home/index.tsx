@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MenuItem, Select, Typography } from "@mui/material";
 import ParticlesBg from "./particles-bg";
 import rwandanCities from "../../constants/cities/rwanda/rwanda.json";
 import swedenCities from "../../constants/cities/sweden/sweden.json";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const [swedenCity, setSwedenCity] = useState("");
   const [rwandanCity, setRwandaCity] = useState("");
+
+  useEffect(() => {
+    if (swedenCity !== "" && rwandanCity !== "") {
+      navigate(`/${swedenCity}/${rwandanCity}`);
+    }
+  }, [swedenCity, rwandanCity]);
+
   return (
     <div
       style={{
@@ -26,8 +35,8 @@ function Home() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: 5,
           margin: "5rem",
+          gap: 5,
         }}
       >
         <div style={styles.card}>
