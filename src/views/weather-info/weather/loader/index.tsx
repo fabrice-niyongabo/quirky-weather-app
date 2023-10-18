@@ -15,7 +15,11 @@ function Loader() {
         variant="rectangular"
         width={100}
         height={20}
-        style={{ background: "rgba(255,255,255,0.5)", marginBottom: "1rem" }}
+        style={{
+          background: "rgba(255,255,255,0.5)",
+          marginBottom: "1rem",
+          marginTop: "1rem",
+        }}
       />
       <Skeleton
         variant="rectangular"
@@ -38,7 +42,7 @@ function Loader() {
       <Skeleton
         variant="rectangular"
         width={"100%"}
-        height={150}
+        height={140}
         style={{ background: "rgba(255,255,255,0.5)", borderRadius: "10px" }}
       />
     </div>

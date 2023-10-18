@@ -62,7 +62,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "rgba(255,255,255,0.5)",
+  bgcolor: "rgba(255,255,255,0.8)",
   borderRadius: "10px",
   boxShadow: 24,
   pt: 2,
