@@ -6,6 +6,7 @@ import { IweatherReaponse } from "../../../interfaces";
 import AirIcon from "@mui/icons-material/Air";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import AnimatedNumber from "../../../components/animated-number";
 
 interface IProps {
   cityName: string | undefined;
@@ -78,7 +79,8 @@ function Weather({ cityName }: IProps) {
                 />
               </Box>
               <Typography variant="h2" sx={{ color: "whitesmoke" }}>
-                {weatherResponse.main.temp}&deg;
+                <AnimatedNumber endValue={weatherResponse.main.temp} />
+                &deg;
               </Typography>
               <p style={{ color: "whitesmoke", textTransform: "capitalize" }}>
                 {weatherResponse.weather[0].description}
@@ -98,21 +100,22 @@ function Weather({ cityName }: IProps) {
                 <IconContiner>
                   <AirIcon sx={{ color: "white" }} />
                   <p style={{ padding: 0, margin: 0, fontWeight: "600" }}>
-                    {weatherResponse.wind.speed} Km/h
+                    <AnimatedNumber endValue={weatherResponse.wind.speed} />{" "}
+                    Km/h
                   </p>
                   <small style={{ opacity: 0.5 }}>Wind</small>
                 </IconContiner>
                 <IconContiner>
                   <WbSunnyIcon sx={{ color: "white" }} />
                   <p style={{ padding: 0, margin: 0, fontWeight: "600" }}>
-                    {weatherResponse.main.humidity}
+                    <AnimatedNumber endValue={weatherResponse.main.humidity} />
                   </p>
                   <small style={{ opacity: 0.5 }}>Humidity</small>
                 </IconContiner>
                 <IconContiner>
                   <ThermostatIcon sx={{ color: "white" }} />
                   <p style={{ padding: 0, margin: 0, fontWeight: "600" }}>
-                    {weatherResponse.main.pressure}
+                    <AnimatedNumber endValue={weatherResponse.main.pressure} />
                   </p>
                   <small style={{ opacity: 0.5 }}>Pressure</small>
                 </IconContiner>
