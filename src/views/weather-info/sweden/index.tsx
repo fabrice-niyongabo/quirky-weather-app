@@ -18,16 +18,18 @@ function Sweden(props: IProps) {
   const [showModal, setShowModal] = useState(false);
   //background image state
   let currentImageIndex = 0;
-
+  const fallbackImage = require("../../../assets/clouds.gif");
   const defaultImage =
-    swedenCityImages.length > 0 ? swedenCityImages[0].urls.small : "";
+    swedenCityImages.length > 0
+      ? swedenCityImages[0].urls.small
+      : fallbackImage;
   const [backgroundImage, setBackgroundImage] = useState(defaultImage);
 
   useEffect(() => {
     if (!props.swedenCity) return;
     //fetching images only if sweden city in the params is defferent from the store
     if (swedenCity !== props.swedenCity) {
-      setBackgroundImage("");
+      setBackgroundImage(fallbackImage);
       dispatch(setSwedenCity(props.swedenCity));
       fetchCityImages();
     } else if (swedenCityImages.length === 0) {
@@ -78,7 +80,7 @@ function Sweden(props: IProps) {
     <CountryContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div
         style={{
-          backgroundColor: "rgba(0,0,0,0.5)",
+          backgroundColor: "rgba(0,0,0,0.7)",
           position: "absolute",
           padding: "2rem",
           top: 0,
