@@ -31,14 +31,14 @@ function Loader() {
       />
       <Skeleton
         variant="rectangular"
-        width={150}
+        width={170}
         height={40}
         style={{ background: "rgba(255,255,255,0.5)", marginBottom: "1rem" }}
       />
       <Skeleton
         variant="rectangular"
         width={"100%"}
-        height={120}
+        height={160}
         style={{ background: "rgba(255,255,255,0.5)", borderRadius: "10px" }}
       />
     </div>

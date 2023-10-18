@@ -29,8 +29,8 @@ function Weather({ cityName }: IProps) {
       setTimeout(() => {
         setIsLoading(false);
         setWeatherResponse(response);
-      }, 1000);
-      //   console.log({ response });
+      }, 1500);
+      console.log({ response });
     } catch (error) {
       setIsLoading(false);
       console.log({ error });

@@ -81,7 +81,7 @@ function Sweden(props: IProps) {
     <CountryContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div
         style={{
-          backgroundColor: "rgba(0,0,0,0.7)",
+          backgroundColor: "rgba(0,0,0,0.8)",
           position: "absolute",
           padding: "2rem",
           top: 0,
