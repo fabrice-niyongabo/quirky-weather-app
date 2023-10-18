@@ -1,11 +1,29 @@
-import { IAction, ISelectedCities } from "../../interfaces";
+import { IAction, ICityImage } from "../../interfaces";
 
-export const SET_SELECTED_CITIES = "SET_SELECTED_CITIES";
+export const SET_SWEDEN_CITY = "SET_SWEDEN_CITY";
+export const SET_RWANDAN_CITY = "SET_RWANDAN_CITY";
+export const SET_RWANDAN_CITY_IMAGES = "SET_RWANDAN_CITY_IMAGES";
+export const SET_SWEDEN_CITY_IMAGES = "SET_SWEDEN_CITY_IMAGES";
 export const RESET_APP = "RESET_APP";
 
-export const setSelectedCities = (cities: ISelectedCities): IAction => ({
-  type: SET_SELECTED_CITIES,
-  payload: cities,
+export const setRwandanCity = (city: string): IAction => ({
+  type: SET_RWANDAN_CITY,
+  payload: city,
+});
+
+export const setSwedenCity = (city: string): IAction => ({
+  type: SET_SWEDEN_CITY,
+  payload: city,
+});
+
+export const setRwandanCityImages = (images: ICityImage[]): IAction => ({
+  type: SET_RWANDAN_CITY_IMAGES,
+  payload: images,
+});
+
+export const setSwedenCityImages = (images: ICityImage[]): IAction => ({
+  type: SET_SWEDEN_CITY_IMAGES,
+  payload: images,
 });
 
 export const resetApp = () => ({
