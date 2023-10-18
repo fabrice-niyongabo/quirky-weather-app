@@ -15,6 +15,7 @@ function Sweden(props: IProps) {
 
   //background image state
   let currentImageIndex = 0;
+
   const defaultImage =
     swedenCityImages.length > 0 ? swedenCityImages[0].urls.small : "";
   const [backgroundImage, setBackgroundImage] = useState(defaultImage);

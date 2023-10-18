@@ -18,15 +18,18 @@ function Rwanda(props: IProps) {
 
   //background image state
   let currentImageIndex = 0;
+  const fallbackImage = require("../../../assets/clouds.gif");
   const defaultImage =
-    rwandanCityImages.length > 0 ? rwandanCityImages[0].urls.small : "";
+    rwandanCityImages.length > 0
+      ? rwandanCityImages[0].urls.small
+      : fallbackImage;
   const [backgroundImage, setBackgroundImage] = useState(defaultImage);
 
   useEffect(() => {
     if (!props.rwandanCity) return;
     //fetching images only if sweden city in the params is defferent from the store
     if (rwandanCity !== props.rwandanCity) {
-      setBackgroundImage("");
+      setBackgroundImage(fallbackImage);
       dispatch(setRwandanCity(props.rwandanCity));
       fetchCityImages();
     } else if (rwandanCityImages.length === 0) {
