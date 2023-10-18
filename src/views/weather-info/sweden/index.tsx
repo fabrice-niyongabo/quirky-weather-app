@@ -15,14 +15,17 @@ function Sweden(props: IProps) {
 
   //background image state
   let currentImageIndex = 0;
-  const [backgroundImage, setBackgroundImage] = useState("");
+  const defaultImage =
+    swedenCityImages.length > 0 ? swedenCityImages[0].urls.small : "";
+  const [backgroundImage, setBackgroundImage] = useState(defaultImage);
 
   useEffect(() => {
     if (!props.swedenCity) return;
     //fetching images only if sweden city in the params is defferent from the store
     if (swedenCity !== props.swedenCity) {
-      fetchCityImages();
+      setBackgroundImage("");
       dispatch(setSwedenCity(props.swedenCity));
+      fetchCityImages();
     } else if (swedenCityImages.length === 0) {
       fetchCityImages();
     }
@@ -45,7 +48,7 @@ function Sweden(props: IProps) {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [swedenCityImages]);
 
   const fetchCityImages = async () => {
     try {
@@ -54,6 +57,10 @@ function Sweden(props: IProps) {
       );
       const response = await imageReq.json();
       if (response?.results) {
+        if (response.results.length > 0) {
+          setBackgroundImage(response.results[0].urls.small);
+        }
+
         dispatch(setSwedenCityImages(response.results));
       } else {
         dispatch(setSwedenCityImages([]));

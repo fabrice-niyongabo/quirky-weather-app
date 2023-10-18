@@ -19,7 +19,7 @@ function WeatherInfo() {
     <WeatherWrapper>
       <WeatherInfoGrid>
         <Sweden swedenCity={swedenCity} />
-        <Rwanda />
+        <Rwanda rwandanCity={rwandanCity} />
       </WeatherInfoGrid>
     </WeatherWrapper>
   );
