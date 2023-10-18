@@ -1,7 +1,8 @@
-import { styled } from "@mui/material";
+import { Button, Typography, styled } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import {
   setRwandanCity,
   setRwandanCityImages,
@@ -80,19 +81,57 @@ function Rwanda(props: IProps) {
       <div
         style={{
           backgroundColor: "rgba(0,0,0,0.5)",
-          height: "100%",
-          width: "1005",
+          position: "absolute",
+          padding: "2rem",
+          top: 0,
+          bottom: 0,
+          right: 0,
+          left: 0,
         }}
-      ></div>
+      >
+        <CityHeader>
+          <CountryInfo>
+            <img
+              src={require("../../../assets/rwanda.png")}
+              width={20}
+              height={20}
+              style={{ borderRadius: 100 }}
+            />
+            <Typography variant="h3" fontSize={18} textTransform={"capitalize"}>
+              Rwanda - {props.rwandanCity}
+            </Typography>
+          </CountryInfo>
+          <Button sx={{ color: "#000", padding: 0 }}>
+            <ArrowDropDownCircleIcon fontSize="large" />
+          </Button>
+        </CityHeader>
+      </div>
     </RwandanContainer>
   );
 }
 
 export default Rwanda;
 
+const CityHeader = styled("div")({
+  backgroundColor: "rgba(255,255,255,0.5)",
+  padding: "1rem",
+  borderRadius: "10px",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+const CountryInfo = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: 5,
+});
+
 const RwandanContainer = styled("div")({
   height: "100%",
   width: "50%",
   transition: "all 1.5s",
   backgroundSize: "100% 100%",
+  position: "relative",
 });

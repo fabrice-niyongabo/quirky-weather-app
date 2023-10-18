@@ -77,7 +77,7 @@ function Sweden(props: IProps) {
         style={{
           backgroundColor: "rgba(0,0,0,0.5)",
           height: "100%",
-          width: "1005",
+          width: "100%",
         }}
       ></div>
     </SwedenContainer>

@@ -34,8 +34,8 @@ const WeatherWrapper = styled(Box)({
 });
 
 const WeatherInfoGrid = styled(Box)({
-  width: "100vw",
-  height: "100vh",
+  width: "100%",
+  height: "100%",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
