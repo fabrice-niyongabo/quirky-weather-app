@@ -8,6 +8,7 @@ import {
   setRwandanCityImages,
 } from "../../../redux/actions/app";
 import SwithCity from "./switch-city";
+import Weather from "../weather";
 
 interface IProps {
   rwandanCity: string | undefined;
@@ -111,6 +112,7 @@ function Rwanda(props: IProps) {
             <ArrowDropDownCircleIcon fontSize="large" />
           </Button>
         </CityHeader>
+        <Weather cityName={props.rwandanCity} />
       </div>
       <SwithCity setShowModal={setShowModal} showModal={showModal} />
     </CountryContainer>
