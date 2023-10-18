@@ -5,6 +5,7 @@ import { RootState } from "../../../redux/reducers";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { setSwedenCity, setSwedenCityImages } from "../../../redux/actions/app";
 import SwithCity from "./switch-city";
+import Weather from "../weather";
 
 interface IProps {
   swedenCity: string | undefined;
@@ -108,6 +109,7 @@ function Sweden(props: IProps) {
             <ArrowDropDownCircleIcon fontSize="large" />
           </Button>
         </CityHeader>
+        <Weather cityName={props.swedenCity} />
       </div>
       <SwithCity setShowModal={setShowModal} showModal={showModal} />
     </CountryContainer>
