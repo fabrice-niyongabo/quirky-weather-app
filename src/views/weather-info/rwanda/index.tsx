@@ -7,6 +7,7 @@ import {
   setRwandanCity,
   setRwandanCityImages,
 } from "../../../redux/actions/app";
+import SwithCity from "./switch-city";
 
 interface IProps {
   rwandanCity: string | undefined;
@@ -16,6 +17,8 @@ function Rwanda(props: IProps) {
   const { rwandanCity, rwandanCityImages } = useSelector(
     (state: RootState) => state.appReducer
   );
+
+  const [showModal, setShowModal] = useState(false);
 
   //background image state
   let currentImageIndex = 0;
@@ -101,11 +104,15 @@ function Rwanda(props: IProps) {
               Rwanda - {props.rwandanCity}
             </Typography>
           </CountryInfo>
-          <Button sx={{ color: "#000", padding: 0 }}>
+          <Button
+            sx={{ color: "#000", padding: 0 }}
+            onClick={() => setShowModal(true)}
+          >
             <ArrowDropDownCircleIcon fontSize="large" />
           </Button>
         </CityHeader>
       </div>
+      <SwithCity setShowModal={setShowModal} showModal={showModal} />
     </RwandanContainer>
   );
 }
