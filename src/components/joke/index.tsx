@@ -13,7 +13,7 @@ function Joke() {
       setErrorMessage("");
       //const req = await fetch("https://v2.jokeapi.dev/joke/Any?type=single");
       const req = await fetch(
-        "https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Dark,Pun,Spooky,Christmas?type=single"
+        "https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Pun,Spooky,Christmas?type=single"
       );
       const response = await req.json();
       setIsLoading(false);
