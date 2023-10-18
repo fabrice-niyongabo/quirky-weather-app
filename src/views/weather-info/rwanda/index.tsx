@@ -9,6 +9,7 @@ import {
 } from "../../../redux/actions/app";
 import SwithCity from "./switch-city";
 import Weather from "../weather";
+import Joke from "../../../components/joke";
 
 interface IProps {
   rwandanCity: string | undefined;
@@ -113,6 +114,7 @@ function Rwanda(props: IProps) {
           </Button>
         </CityHeader>
         <Weather cityName={props.rwandanCity} />
+        <Joke />
       </div>
       <SwithCity setShowModal={setShowModal} showModal={showModal} />
     </CountryContainer>

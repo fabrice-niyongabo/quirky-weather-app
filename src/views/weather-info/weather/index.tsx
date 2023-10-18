@@ -31,7 +31,7 @@ function Weather({ cityName }: IProps) {
         setIsLoading(false);
         setWeatherResponse(response);
       }, 1500);
-      console.log({ response });
+      //   console.log({ response });
     } catch (error) {
       setIsLoading(false);
       console.log({ error });
@@ -143,10 +143,10 @@ const WeatherResultsContainer = styled("div")({
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
-  padding: "2rem",
 });
 
 const WeatherContainer = styled("div")({
   //   backgroundColor: "rgba(255,255,255,0.5)",
   marginTop: "1rem",
+  padding: "1rem 2rem",
 });

@@ -63,3 +63,8 @@ export interface IweatherReaponse {
   name: string;
   cod: number;
 }
+
+export interface IJoke {
+  error: boolean;
+  joke: string;
+}
