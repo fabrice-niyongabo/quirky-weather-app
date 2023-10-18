@@ -1,8 +1,10 @@
-import { styled } from "@mui/material";
+import { Button, Typography, styled } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { setSwedenCity, setSwedenCityImages } from "../../../redux/actions/app";
+import SwithCity from "./switch-city";
 
 interface IProps {
   swedenCity: string | undefined;
@@ -13,6 +15,7 @@ function Sweden(props: IProps) {
     (state: RootState) => state.appReducer
   );
 
+  const [showModal, setShowModal] = useState(false);
   //background image state
   let currentImageIndex = 0;
 
@@ -72,23 +75,65 @@ function Sweden(props: IProps) {
     }
   };
   return (
-    <SwedenContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <CountryContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div
         style={{
           backgroundColor: "rgba(0,0,0,0.5)",
-          height: "100%",
-          width: "100%",
+          position: "absolute",
+          padding: "2rem",
+          top: 0,
+          bottom: 0,
+          right: 0,
+          left: 0,
         }}
-      ></div>
-    </SwedenContainer>
+      >
+        <CityHeader>
+          <CountryInfo>
+            <img
+              src={require("../../../assets/sweden.png")}
+              width={20}
+              height={20}
+              style={{ borderRadius: 100 }}
+            />
+            <Typography variant="h3" fontSize={18} textTransform={"capitalize"}>
+              Sweden - {props.swedenCity}
+            </Typography>
+          </CountryInfo>
+          <Button
+            sx={{ color: "#000", padding: 0 }}
+            onClick={() => setShowModal(true)}
+          >
+            <ArrowDropDownCircleIcon fontSize="large" />
+          </Button>
+        </CityHeader>
+      </div>
+      <SwithCity setShowModal={setShowModal} showModal={showModal} />
+    </CountryContainer>
   );
 }
 
 export default Sweden;
 
-const SwedenContainer = styled("div")({
+const CityHeader = styled("div")({
+  backgroundColor: "rgba(255,255,255,0.5)",
+  padding: "1rem",
+  borderRadius: "10px",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+const CountryInfo = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: 5,
+});
+
+const CountryContainer = styled("div")({
   height: "100%",
   width: "50%",
   transition: "all 1.5s",
   backgroundSize: "100% 100%",
+  position: "relative",
 });

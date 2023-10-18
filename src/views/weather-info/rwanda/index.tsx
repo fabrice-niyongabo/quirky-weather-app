@@ -80,7 +80,7 @@ function Rwanda(props: IProps) {
     }
   };
   return (
-    <RwandanContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <CountryContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div
         style={{
           backgroundColor: "rgba(0,0,0,0.5)",
@@ -113,7 +113,7 @@ function Rwanda(props: IProps) {
         </CityHeader>
       </div>
       <SwithCity setShowModal={setShowModal} showModal={showModal} />
-    </RwandanContainer>
+    </CountryContainer>
   );
 }
 
@@ -135,7 +135,7 @@ const CountryInfo = styled("div")({
   gap: 5,
 });
 
-const RwandanContainer = styled("div")({
+const CountryContainer = styled("div")({
   height: "100%",
   width: "50%",
   transition: "all 1.5s",
