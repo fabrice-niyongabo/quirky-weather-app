@@ -110,7 +110,7 @@ function Sweden(props: IProps) {
             <ArrowDropDownCircleIcon fontSize="large" />
           </Button>
         </CityHeader>
-        <Weather cityName={props.swedenCity} />
+        <Weather cityName={props.swedenCity} cityType="Sweden" />
         <Joke />
       </div>
       <SwithCity setShowModal={setShowModal} showModal={showModal} />

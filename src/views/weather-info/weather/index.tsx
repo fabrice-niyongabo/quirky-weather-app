@@ -8,11 +8,14 @@ import ThermostatIcon from "@mui/icons-material/Thermostat";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import AnimatedNumber from "../../../components/animated-number";
 import WarningIcon from "@mui/icons-material/Warning";
+import rwandanCities from "../../../constants/cities/rwanda/rwanda.json";
+import swendenCities from "../../../constants/cities/sweden/sweden.json";
 
 interface IProps {
   cityName: string | undefined;
+  cityType: "Rwandan" | "Sweden";
 }
-function Weather({ cityName }: IProps) {
+function Weather({ cityName, cityType }: IProps) {
   const [weatherResponse, setWeatherResponse] = useState<
     IweatherReaponse | undefined
   >(undefined);
@@ -22,7 +25,19 @@ function Weather({ cityName }: IProps) {
 
   useEffect(() => {
     if (cityName) {
-      fetchWeatherInfo();
+      //validate the city
+      const citiesToUse =
+        cityType === "Rwandan" ? rwandanCities : swendenCities;
+      const exists = citiesToUse.find((item) => item.label === cityName);
+      if (exists) {
+        fetchWeatherInfo();
+      } else {
+        setErrorMessage(
+          `Invalid ${cityType} city. Please choose from our list.`
+        );
+      }
+    } else {
+      setErrorMessage("Invalid city");
     }
   }, [cityName]);
 

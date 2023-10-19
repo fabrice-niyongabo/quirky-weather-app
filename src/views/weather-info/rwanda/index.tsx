@@ -113,7 +113,7 @@ function Rwanda(props: IProps) {
             <ArrowDropDownCircleIcon fontSize="large" />
           </Button>
         </CityHeader>
-        <Weather cityName={props.rwandanCity} />
+        <Weather cityName={props.rwandanCity} cityType="Rwandan" />
         <Joke />
       </div>
       <SwithCity setShowModal={setShowModal} showModal={showModal} />
