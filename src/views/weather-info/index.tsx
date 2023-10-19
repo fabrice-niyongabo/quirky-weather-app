@@ -4,11 +4,11 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import City from "./city";
+import NavBar from "./nav-bar";
 
 function WeatherInfo() {
   const { swedenCity, rwandanCity } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   useEffect(() => {
     if (!swedenCity || !rwandanCity) {
       navigate("/");
@@ -16,6 +16,7 @@ function WeatherInfo() {
   }, []);
   return (
     <WeatherWrapper>
+      <NavBar />
       <WeatherInfoGrid>
         <City cityType="Sweden" cityName={swedenCity} />
         <City cityType="Rwandan" cityName={rwandanCity} />
@@ -30,6 +31,7 @@ const WeatherWrapper = styled(Box)({
   width: "100vw",
   height: "100vh",
   position: "relative",
+  transition: "all 1s",
 });
 
 const WeatherInfoGrid = styled(Box)({
