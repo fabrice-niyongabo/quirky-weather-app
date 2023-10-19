@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const jwdDecode = require();
+const jwdDecode = require("jwt-decode");
 
 // models
 const Users = require("../model/users");
