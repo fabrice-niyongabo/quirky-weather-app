@@ -17,8 +17,8 @@ app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-app.use("/api/users", usersRoute);
-app.use("/api/weather", weatherRoute);
+app.use("/api/userbs/", usersRoute);
+app.use("/api/weather/", weatherRoute);
 
 //404 route
 app.use("*", (req, res) => {
