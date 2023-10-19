@@ -6,12 +6,14 @@ import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import {
   setRwandanCity,
   setRwandanCityImages,
+  setSwedenCity,
   setSwedenCityImages,
 } from "../../../redux/actions/app";
 import SwithCity from "./switch-city";
 import Weather from "../weather";
 import Joke from "../../../components/joke";
 import { cityTpe } from "../../../interfaces";
+import { toastMessage } from "../../../helpers";
 
 interface IProps {
   cityName: string | undefined;
@@ -53,7 +55,7 @@ function City(props: IProps) {
     } else {
       if (swedenCity !== props.cityName) {
         setBackgroundImage(fallbackImage);
-        dispatch(setRwandanCity(props.cityName));
+        dispatch(setSwedenCity(props.cityName));
         fetchCityImages();
       } else if (swedenCityImages.length === 0) {
         fetchCityImages();
@@ -99,12 +101,13 @@ function City(props: IProps) {
         if (props.cityType === "Rwandan") {
           dispatch(setRwandanCityImages([]));
         } else {
-          dispatch(setRwandanCityImages([]));
+          dispatch(setSwedenCityImages([]));
         }
       }
     } catch (error) {
       //error while fetching city images
       console.log({ error });
+      toastMessage("error", JSON.stringify(error));
     }
   };
   return (

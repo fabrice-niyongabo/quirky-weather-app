@@ -13,7 +13,9 @@ export const setRwandanCity = (city: string): IAction => ({
   payload: city,
 });
 
-export const setRwandanCityWeatherInfo = (info: ICityWeatherInfo): IAction => ({
+export const setRwandanCityWeatherInfo = (
+  info: ICityWeatherInfo | undefined
+): IAction => ({
   type: SET_RWANDAN_CITY_WEATHER_INFO,
   payload: info,
 });
@@ -23,7 +25,9 @@ export const setSwedenCity = (city: string): IAction => ({
   payload: city,
 });
 
-export const setSwedenCityWeatherInfo = (info: ICityWeatherInfo): IAction => ({
+export const setSwedenCityWeatherInfo = (
+  info: ICityWeatherInfo | undefined
+): IAction => ({
   type: SET_SWEDEN_CITY_WEATHER_INFO,
   payload: info,
 });

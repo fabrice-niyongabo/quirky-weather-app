@@ -26,9 +26,12 @@ import { setUser, setUserToken } from "../../../redux/actions/user";
 function NavBar() {
   const dispatch = useDispatch();
   const { token } = useSelector((state: RootState) => state.userReducer);
-  const { swedenCity, rwandanCity } = useSelector(
-    (state: RootState) => state.appReducer
-  );
+  const {
+    swedenCity,
+    rwandanCity,
+    swedenCityWeatherInfo,
+    rwandanCityWeatherInfo,
+  } = useSelector((state: RootState) => state.appReducer);
   const [isLoading, setIsLoading] = useState(false);
   const [expandNav, setExpandNav] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -50,10 +53,30 @@ function NavBar() {
 
   const saveWeather = async () => {
     try {
+      if (
+        !(
+          rwandanCity &&
+          swedenCity &&
+          rwandanCityWeatherInfo &&
+          swedenCityWeatherInfo
+        )
+      ) {
+        toastMessage("info", "No correct weather information available yet!");
+        return;
+      }
       setIsLoading(true);
       const response = await fetch(BACKEND_API_URL + "/weather", {
         method: "POST",
-        body: JSON.stringify({ swedenCity, rwandanCity }),
+        body: JSON.stringify({
+          swedenCityName: swedenCity,
+          rwandanCityName: rwandanCity,
+          swedenCityWeatherInfo,
+          rwandanCityWeatherInfo,
+        }),
+        headers: {
+          token,
+          "Content-Type": "application/json",
+        },
       });
       const data = await response.json();
       setIsLoading(false);
@@ -130,9 +153,9 @@ function NavBar() {
           )}
           <NavbarButton onClick={() => toggleNav()}>
             {expandNav ? (
-              <ArrowDropUpIcon fontSize="small" />
+              <ArrowDropUpIcon fontSize="medium" />
             ) : (
-              <ArrowDropDownIcon fontSize="small" />
+              <ArrowDropDownIcon fontSize="medium" />
             )}
           </NavbarButton>
         </NavbarMainContainer>

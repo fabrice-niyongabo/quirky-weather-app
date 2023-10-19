@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import Loader from "./loader";
 import { Box, Typography } from "@mui/material";
-import { IweatherReaponse } from "../../../interfaces";
+import { ICityWeatherInfo, IweatherReaponse } from "../../../interfaces";
 import AirIcon from "@mui/icons-material/Air";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
@@ -10,12 +10,18 @@ import AnimatedNumber from "../../../components/animated-number";
 import WarningIcon from "@mui/icons-material/Warning";
 import rwandanCities from "../../../constants/cities/rwanda/rwanda.json";
 import swendenCities from "../../../constants/cities/sweden/sweden.json";
+import { useDispatch } from "react-redux";
+import {
+  setRwandanCityWeatherInfo,
+  setSwedenCityWeatherInfo,
+} from "../../../redux/actions/app";
 
 interface IProps {
   cityName: string | undefined;
   cityType: "Rwandan" | "Sweden";
 }
 function Weather({ cityName, cityType }: IProps) {
+  const dispatch = useDispatch();
   const [weatherResponse, setWeatherResponse] = useState<
     IweatherReaponse | undefined
   >(undefined);
@@ -32,6 +38,11 @@ function Weather({ cityName, cityType }: IProps) {
       if (exists) {
         fetchWeatherInfo();
       } else {
+        if (cityType === "Rwandan") {
+          dispatch(setRwandanCityWeatherInfo(undefined));
+        } else {
+          dispatch(setSwedenCityWeatherInfo(undefined));
+        }
         setErrorMessage(
           `Invalid ${cityType} city. Please choose from our list.`
         );
@@ -51,6 +62,11 @@ function Weather({ cityName, cityType }: IProps) {
       const response = await request.json();
       setTimeout(() => {
         setIsLoading(false);
+        if (cityType === "Rwandan") {
+          dispatch(setRwandanCityWeatherInfo(undefined));
+        } else {
+          dispatch(setSwedenCityWeatherInfo(undefined));
+        }
         if (response.cod !== 200) {
           const msg = response?.message
             ? "Can't find weather. " + response.message
@@ -58,6 +74,19 @@ function Weather({ cityName, cityType }: IProps) {
           setErrorMessage(msg);
         } else {
           setWeatherResponse(response);
+          const weatherInfo: ICityWeatherInfo = {
+            icon: response.weather[0].description,
+            description: response.weather[0].description,
+            humidity: response.main.humidity,
+            pressure: response.main.pressure,
+            temperature: response.main.temp,
+            windSpeed: response.wind.speed,
+          };
+          if (cityType === "Rwandan") {
+            dispatch(setRwandanCityWeatherInfo(weatherInfo));
+          } else {
+            dispatch(setSwedenCityWeatherInfo(weatherInfo));
+          }
         }
       }, 1500);
     } catch (error: any) {
