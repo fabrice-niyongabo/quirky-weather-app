@@ -7,12 +7,14 @@ import { googleLogout } from "@react-oauth/google";
 import { resetUser } from "../../../../redux/actions/user";
 import ConfirmationAlert from "../../../../components/confirmation-alert";
 import { toastMessage } from "../../../../helpers";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   toggleNav: any;
 }
 function UserDropDown({ toggleNav }: IProps) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state: RootState) => state.userReducer);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -71,7 +73,7 @@ function UserDropDown({ toggleNav }: IProps) {
         }}
         sx={{ marginTop: 2 }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem>
           <div>
             <p style={{ padding: 0, margin: 0, fontWeight: "600" }}>
               {user.fName} {user.lName}
@@ -79,7 +81,7 @@ function UserDropDown({ toggleNav }: IProps) {
             <span style={{ fontSize: 12 }}>{user.email}</span>
           </div>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Saved Weather</MenuItem>
+        <MenuItem onClick={() => navigate("/weathers")}>Saved Weather</MenuItem>
         <MenuItem onClick={() => setShowAlert(true)}>Logout</MenuItem>
       </Menu>
       <ConfirmationAlert
