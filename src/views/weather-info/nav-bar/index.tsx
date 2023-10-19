@@ -79,13 +79,16 @@ function NavBar() {
         },
       });
       const data = await response.json();
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
 
-      if (response.ok) {
-        toastMessage("success", data.msg);
-      } else {
-        errorHandler(data);
-      }
+        if (response.ok) {
+          toastMessage("success", data.msg);
+          toggleNav();
+        } else {
+          errorHandler(data);
+        }
+      }, 1000);
     } catch (error) {
       setIsLoading(false);
       errorHandler(error);
