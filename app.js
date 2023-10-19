@@ -9,20 +9,22 @@ app.use(express.json({ limit: "50mb" }));
 
 app.use(cors());
 
+const usersRoute = require("./routes/users");
+const weatherRoute = require("./routes/weather");
+
 //home route
 app.get("/", (req, res) => {
-  res.send("server is running");
+  res.send("Server is running");
 });
+
+app.use("/api/users", usersRoute);
+app.use("/api/weather", weatherRoute);
 
 //404 route
 app.use("*", (req, res) => {
   res.status(404).json({
-    success: "false",
+    success: false,
     message: "Page not found",
-    error: {
-      statusCode: 404,
-      message: "The page does not exist on the server.",
-    },
   });
 });
 
