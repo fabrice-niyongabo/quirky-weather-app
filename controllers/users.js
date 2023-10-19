@@ -17,7 +17,7 @@ const loginOrRegister = async (req, res) => {
     //decode google credentials
     const decodedData = jwdDecode(credential);
 
-    const { email, given_name, family_name } = decodedData;
+    const { email, given_name, family_name, picture } = decodedData;
 
     //validate decoded data
     if (!(email && given_name && family_name && picture)) {
@@ -27,7 +27,7 @@ const loginOrRegister = async (req, res) => {
     }
 
     // Validate if user exist in our database
-    const user = await Users.find({
+    const user = await Users.findOne({
       email,
     });
     if (!user) {
@@ -78,6 +78,7 @@ const loginOrRegister = async (req, res) => {
       });
     }
   } catch (err) {
+    console.log({ err });
     return res.status(400).send({
       msg: "Something went wrong while signing you in. Please Try again later",
     });
