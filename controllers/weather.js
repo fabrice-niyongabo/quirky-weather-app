@@ -16,15 +16,15 @@ const saveWeather = async (req, res) => {
     const {
       rwandanCityName,
       swedenCityName,
-      rwandanCityWeather,
-      swedenCityWeather,
+      rwandanCityWeatherInfo,
+      swedenCityWeatherInfo,
     } = req.body;
     if (
       !(
         rwandanCityName &&
         swedenCityName &&
-        rwandanCityWeather &&
-        swedenCityWeather
+        rwandanCityWeatherInfo &&
+        swedenCityWeatherInfo
       )
     ) {
       return res.status(400).send({ msg: "Invalid request" });
@@ -34,8 +34,8 @@ const saveWeather = async (req, res) => {
       userId: req.user._id,
       rwandanCityName,
       swedenCityName,
-      rwandanCityWeather,
-      swedenCityWeather,
+      rwandanCityWeatherInfo,
+      swedenCityWeatherInfo,
     });
 
     return res.status(200).json({

@@ -4,8 +4,8 @@ const weatherSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   rwandanCityName: { type: String, required: true },
   swedenCityName: { type: String, required: true },
-  rwandanCityWeather: { type: Object, required: true },
-  swedenCityWeather: { type: Object, required: true },
+  rwandanCityWeatherInfo: { type: Object, required: true },
+  swedenCityWeatherInfo: { type: Object, required: true },
 
   //   temperature: { type: String, required: true },
   //   windSpeed: { type: String, required: true },
