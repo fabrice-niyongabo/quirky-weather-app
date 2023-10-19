@@ -71,3 +71,5 @@ export interface IJoke {
 }
 
 export type cityTpe = "Rwandan" | "Sweden";
+
+export type ToastMessageTypes = "error" | "info" | "success";
