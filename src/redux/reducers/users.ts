@@ -1,5 +1,5 @@
 import { IAction, IUser } from "../../interfaces";
-import { RESET_USER, SET_USER, SET_USER_TOKEN } from "../actions/user";
+import { RESET_USER, SET_USER } from "../actions/user";
 
 interface IUserReducer {
   user: IUser;
@@ -23,9 +23,12 @@ const userReducer = (
 ): IUserReducer => {
   switch (action.type) {
     case SET_USER:
-      return { ...state, user: action.payload };
-    case SET_USER_TOKEN:
-      return { ...state, token: action.payload };
+      return {
+        ...state,
+        user: action.payload.user,
+        token: action.payload.token,
+      };
+
     case RESET_USER:
       return initialState;
 

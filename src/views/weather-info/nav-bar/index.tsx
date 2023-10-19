@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
 import { errorHandler, toastMessage } from "../../../helpers";
 import { BACKEND_API_URL } from "../../../constants";
-import { setUser, setUserToken } from "../../../redux/actions/user";
+import { setUser } from "../../../redux/actions/user";
 import UserDropDown from "./user-dropdown";
 
 function NavBar() {
@@ -49,10 +49,10 @@ function NavBar() {
       setShowLoginModal(true);
       return;
     }
-    saveWeather();
+    saveWeather(undefined);
   };
 
-  const saveWeather = async () => {
+  const saveWeather = async (userToken: string | undefined) => {
     try {
       if (
         !(
@@ -75,7 +75,7 @@ function NavBar() {
           rwandanCityWeatherInfo,
         }),
         headers: {
-          token,
+          token: userToken ? userToken : token,
           "Content-Type": "application/json",
         },
       });
@@ -113,14 +113,13 @@ function NavBar() {
       if (response.ok) {
         //login the user
         const { user, token, msg } = data;
-        dispatch(setUser(user));
-        dispatch(setUserToken(token));
+        dispatch(setUser(user, token));
         toastMessage("success", msg);
 
         setShowLoginModal(false);
 
         //save weather info
-        saveWeather();
+        saveWeather(token);
       } else {
         errorHandler(data);
       }
