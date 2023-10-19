@@ -1,5 +1,5 @@
 // models
-const Users = require("../model/users");
+const Weather = require("../model/weather");
 // models
 
 const getAll = async (req, res) => {
@@ -13,6 +13,35 @@ const getAll = async (req, res) => {
 
 const saveWeather = async (req, res) => {
   try {
+    const {
+      rwandanCityName,
+      swedenCityName,
+      rwandanCityWeather,
+      swedenCityWeather,
+    } = req.body;
+    if (
+      !(
+        rwandanCityName &&
+        swedenCityName &&
+        rwandanCityWeather &&
+        swedenCityWeather
+      )
+    ) {
+      return res.status(400).send({ msg: "Invalid request" });
+    }
+
+    const weather = await Weather.create({
+      userId: req.user._id,
+      rwandanCityName,
+      swedenCityName,
+      rwandanCityWeather,
+      swedenCityWeather,
+    });
+
+    return res.status(200).json({
+      msg: "Weather info saved successfull",
+      weather,
+    });
   } catch (err) {
     return res.status(400).send({
       msg: err.message,
