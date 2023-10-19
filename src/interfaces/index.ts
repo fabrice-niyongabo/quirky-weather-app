@@ -62,6 +62,7 @@ export interface IweatherReaponse {
   id: number;
   name: string;
   cod: number;
+  message?: string;
 }
 
 export interface IJoke {

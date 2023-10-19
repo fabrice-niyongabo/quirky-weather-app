@@ -9,10 +9,14 @@ function Home() {
   const navigate = useNavigate();
   const [swedenCity, setSwedenCity] = useState("");
   const [rwandanCity, setRwandaCity] = useState("");
+  const [disableInputs, setDesableInputs] = useState(false);
 
   useEffect(() => {
     if (swedenCity !== "" && rwandanCity !== "") {
-      navigate(`/${swedenCity}/${rwandanCity}`);
+      setDesableInputs(true);
+      setTimeout(() => {
+        navigate(`/${swedenCity}/${rwandanCity}`);
+      }, 500);
     }
   }, [swedenCity, rwandanCity]);
 
@@ -49,6 +53,7 @@ function Home() {
             fullWidth
             sx={styles.input}
             value={swedenCity}
+            disabled={disableInputs}
             onChange={(e: any) => setSwedenCity(e.target.value)}
           >
             <MenuItem value=""></MenuItem>
@@ -69,6 +74,7 @@ function Home() {
             fullWidth
             sx={styles.input}
             value={rwandanCity}
+            disabled={disableInputs}
             onChange={(e: any) => setRwandaCity(e.target.value)}
           >
             <MenuItem value=""></MenuItem>
