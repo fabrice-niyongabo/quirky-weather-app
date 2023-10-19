@@ -41,10 +41,10 @@ function ConfirmationAlert({
               gap: 2,
             }}
           >
-            <WarningIcon style={{ fontWeight: "500", color: "#000" }} />
+            {/* <WarningIcon style={{ fontWeight: "500", color: "#000" }} /> */}
             <Typography
               variant="h4"
-              style={{ fontSize: 20, fontWeight: "500", color: "#000" }}
+              style={{ fontSize: 18, fontWeight: "600", color: "#000" }}
             >
               Confirmation
             </Typography>
@@ -53,7 +53,7 @@ function ConfirmationAlert({
         <DialogContent>
           <DialogContentText
             id="alert-dialog-description"
-            sx={{ paddingTop: "1rem" }}
+            sx={{ paddingTop: "1rem", fontSize: 14 }}
           >
             {title ? title : " Do you want to perform this process?"}
           </DialogContentText>

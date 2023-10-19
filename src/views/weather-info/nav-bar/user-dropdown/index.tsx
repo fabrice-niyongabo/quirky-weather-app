@@ -6,6 +6,7 @@ import FullPageLoader from "../../../../components/full-page-loader";
 import { googleLogout } from "@react-oauth/google";
 import { resetUser } from "../../../../redux/actions/user";
 import ConfirmationAlert from "../../../../components/confirmation-alert";
+import { toastMessage } from "../../../../helpers";
 
 interface IProps {
   toggleNav: any;
@@ -32,10 +33,12 @@ function UserDropDown({ toggleNav }: IProps) {
         googleLogout();
         dispatch(resetUser());
         setIsLoading(false);
+        toastMessage("success", "Logged out!");
         toggleNav();
       } catch (error) {
         dispatch(resetUser());
         setIsLoading(false);
+        toastMessage("success", "Logged out!");
         toggleNav();
       }
     }, 1000);
