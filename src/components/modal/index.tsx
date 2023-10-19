@@ -14,6 +14,7 @@ function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
     <>
       <Modal
         open={open}
+        autoFocus={false}
         onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -64,6 +65,7 @@ const style = {
   width: 400,
   bgcolor: "rgba(255,255,255,0.8)",
   borderRadius: "10px",
+  outline: "none",
   boxShadow: 24,
   pt: 2,
   px: 4,

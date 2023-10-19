@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Store, persistor } from "./redux/store";
 import AppLoader from "./components/app-loader";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,7 +17,11 @@ root.render(
     <Suspense fallback={<AppLoader />}>
       <Provider store={Store}>
         <PersistGate persistor={persistor}>
-          <App />
+          <GoogleOAuthProvider
+            clientId={process.env.REACT_APP_CLIENT_ID as string}
+          >
+            <App />
+          </GoogleOAuthProvider>
         </PersistGate>
       </Provider>
     </Suspense>

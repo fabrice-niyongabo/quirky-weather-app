@@ -2,48 +2,115 @@ import styled from "@emotion/styled";
 import { Save, Share } from "@mui/icons-material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
+import QruirkyAppModal from "../../../components/modal";
+import { GoogleLogin } from "@react-oauth/google";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
 
 function NavBar() {
   const [expandNav, setExpandNav] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const shareUrl = window.location.href;
 
   const toggleNav = () => {
     setExpandNav(!expandNav);
   };
   return (
-    <NavBarContainer style={{ height: expandNav ? 100 : 10 }}>
-      <NavbarMainContainer>
-        {expandNav && (
-          <>
-            <Typography variant="h3" fontSize={20}>
-              Quirky weather App
-            </Typography>
-            <MenuList>
-              <li>
-                <Save />
-                <span>save</span>
-              </li>
-              <li>
-                <Share />
-                <span>share</span>
-              </li>
-            </MenuList>
-          </>
-        )}
-        <NavbarButton onClick={() => toggleNav()}>
-          {expandNav ? (
-            <ArrowDropUpIcon fontSize="small" />
-          ) : (
-            <ArrowDropDownIcon fontSize="small" />
+    <>
+      <NavBarContainer style={{ height: expandNav ? 100 : 10 }}>
+        <NavbarMainContainer>
+          {expandNav && (
+            <>
+              <Typography variant="h3" fontSize={20}>
+                Quirky weather App
+              </Typography>
+              <MenuList>
+                <li onClick={() => setShowLoginModal(true)}>
+                  <Save />
+                  <span>save</span>
+                </li>
+                <li
+                  onClick={() => {
+                    toggleNav();
+                    setShowShareModal(true);
+                  }}
+                >
+                  <Share />
+                  <span>share</span>
+                </li>
+              </MenuList>
+            </>
           )}
-        </NavbarButton>
-      </NavbarMainContainer>
-    </NavBarContainer>
+          <NavbarButton onClick={() => toggleNav()}>
+            {expandNav ? (
+              <ArrowDropUpIcon fontSize="small" />
+            ) : (
+              <ArrowDropDownIcon fontSize="small" />
+            )}
+          </NavbarButton>
+        </NavbarMainContainer>
+      </NavBarContainer>
+      <QruirkyAppModal
+        open={showShareModal}
+        setOpen={setShowShareModal}
+        title="Share"
+      >
+        <Grid container>
+          <Grid md={3}>
+            <FacebookShareButton url={shareUrl}>
+              <FacebookIcon style={shareIconStyles} />
+            </FacebookShareButton>
+          </Grid>
+          <Grid md={3}>
+            <TelegramShareButton url={shareUrl}>
+              <TelegramIcon style={shareIconStyles} />
+            </TelegramShareButton>
+          </Grid>
+          <Grid md={3}>
+            <WhatsappShareButton url={shareUrl}>
+              <WhatsappIcon style={shareIconStyles} />
+            </WhatsappShareButton>
+          </Grid>
+          <Grid md={3}>
+            <TwitterShareButton url={shareUrl}>
+              <TwitterIcon style={shareIconStyles} />
+            </TwitterShareButton>
+          </Grid>
+        </Grid>
+      </QruirkyAppModal>
+      <QruirkyAppModal open={showLoginModal} setOpen={setShowLoginModal}>
+        <>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
+        </>
+      </QruirkyAppModal>
+    </>
   );
 }
 
 export default NavBar;
+
+const shareIconStyles = {
+  borderRadius: "100%",
+};
 
 const MenuList = styled("ul")({
   display: "flex",
