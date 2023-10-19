@@ -73,3 +73,11 @@ export interface IJoke {
 export type cityTpe = "Rwandan" | "Sweden";
 
 export type ToastMessageTypes = "error" | "info" | "success";
+
+export interface IUser {
+  fName: string;
+  lName: string;
+  email: string;
+  image: string;
+  createdAt: string;
+}
