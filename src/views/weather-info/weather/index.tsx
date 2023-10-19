@@ -49,7 +49,6 @@ function Weather({ cityName, cityType }: IProps) {
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&units=imperial`
       );
       const response = await request.json();
-      console.log({ response });
       setTimeout(() => {
         setIsLoading(false);
         if (response.cod !== 200) {

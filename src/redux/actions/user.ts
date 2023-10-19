@@ -9,7 +9,7 @@ export const setUser = (user: IUser): IAction => ({
   payload: user,
 });
 
-export const setToken = (token: string): IAction => ({
+export const setUserToken = (token: string): IAction => ({
   type: SET_USER_TOKEN,
   payload: token,
 });

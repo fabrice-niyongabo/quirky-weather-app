@@ -31,6 +31,8 @@ export const toastMessage = (type: ToastMessageTypes, message: string) => {
 export const errorHandler = (error: any) => {
   if (error?.response?.data?.msg) {
     toastMessage("error", error.response.data.msg);
+  } else if (error?.msg) {
+    toastMessage("error", error.msg);
   } else {
     toastMessage("error", error.message);
   }

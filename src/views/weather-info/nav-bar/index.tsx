@@ -16,8 +16,17 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
+import FullPageLoader from "../../../components/full-page-loader";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/reducers";
+import { errorHandler, toastMessage } from "../../../helpers";
+import { BACKEND_API_URL } from "../../../constants";
+import { setUser, setUserToken } from "../../../redux/actions/user";
 
 function NavBar() {
+  const dispatch = useDispatch();
+  const { token } = useSelector((state: RootState) => state.userReducer);
+  const [isLoading, setIsLoading] = useState(false);
   const [expandNav, setExpandNav] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -26,6 +35,50 @@ function NavBar() {
 
   const toggleNav = () => {
     setExpandNav(!expandNav);
+  };
+
+  const handleSave = () => {
+    if (token.trim() === "") {
+      setShowLoginModal(true);
+      return;
+    }
+    saveWeather();
+  };
+
+  const saveWeather = () => {};
+
+  const handleLogin = async (credential: string | undefined) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(BACKEND_API_URL + "/users/login", {
+        method: "POST",
+        body: JSON.stringify({ credential }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      setIsLoading(false);
+
+      if (response.ok) {
+        //login the user
+        const { user, token, msg } = data;
+        dispatch(setUser(user));
+        dispatch(setUserToken(token));
+        toastMessage("success", msg);
+
+        setShowLoginModal(false);
+
+        //save weather info
+        saveWeather();
+      } else {
+        errorHandler(data);
+      }
+    } catch (error) {
+      setIsLoading(true);
+      errorHandler(error);
+    }
   };
   return (
     <>
@@ -37,7 +90,7 @@ function NavBar() {
                 Quirky weather App
               </Typography>
               <MenuList>
-                <li onClick={() => setShowLoginModal(true)}>
+                <li onClick={() => handleSave()}>
                   <Save />
                   <span>save</span>
                 </li>
@@ -90,23 +143,35 @@ function NavBar() {
           </Grid>
         </Grid>
       </QruirkyAppModal>
+
       <QruirkyAppModal open={showLoginModal} setOpen={setShowLoginModal}>
-        <>
+        <LoginContainer>
+          <p>Please Login First!</p>
           <GoogleLogin
             onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
+              handleLogin(credentialResponse.credential);
             }}
             onError={() => {
               console.log("Login Failed");
             }}
           />
-        </>
+        </LoginContainer>
       </QruirkyAppModal>
+
+      <FullPageLoader open={isLoading} />
     </>
   );
 }
 
 export default NavBar;
+
+const LoginContainer = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+  marginTop: "1rem",
+});
 
 const shareIconStyles = {
   borderRadius: "100%",
