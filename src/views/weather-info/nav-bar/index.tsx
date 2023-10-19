@@ -152,7 +152,7 @@ function NavBar() {
                   <Share />
                   <span>share</span>
                 </li>
-                {token.trim() !== "" && <UserDropDown />}
+                {token.trim() !== "" && <UserDropDown toggleNav={toggleNav} />}
               </MenuList>
             </>
           )}

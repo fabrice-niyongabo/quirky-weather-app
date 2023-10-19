@@ -7,7 +7,10 @@ import { googleLogout } from "@react-oauth/google";
 import { resetUser } from "../../../../redux/actions/user";
 import ConfirmationAlert from "../../../../components/confirmation-alert";
 
-function UserDropDown() {
+interface IProps {
+  toggleNav: any;
+}
+function UserDropDown({ toggleNav }: IProps) {
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.userReducer);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,9 +32,11 @@ function UserDropDown() {
         googleLogout();
         dispatch(resetUser());
         setIsLoading(false);
+        toggleNav();
       } catch (error) {
         dispatch(resetUser());
         setIsLoading(false);
+        toggleNav();
       }
     }, 1000);
   };
