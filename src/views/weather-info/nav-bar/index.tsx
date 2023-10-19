@@ -22,6 +22,7 @@ import { RootState } from "../../../redux/reducers";
 import { errorHandler, toastMessage } from "../../../helpers";
 import { BACKEND_API_URL } from "../../../constants";
 import { setUser, setUserToken } from "../../../redux/actions/user";
+import UserDropDown from "./user-dropdown";
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -151,15 +152,29 @@ function NavBar() {
                   <Share />
                   <span>share</span>
                 </li>
+                {token.trim() !== "" && <UserDropDown />}
               </MenuList>
             </>
           )}
           <NavbarButton onClick={() => toggleNav()}>
-            {expandNav ? (
-              <ArrowDropUpIcon fontSize="medium" />
-            ) : (
-              <ArrowDropDownIcon fontSize="medium" />
-            )}
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                display: "flex",
+              }}
+            >
+              <div style={{ position: "absolute", top: expandNav ? -20 : -15 }}>
+                {expandNav ? (
+                  <ArrowDropUpIcon fontSize="large" />
+                ) : (
+                  <ArrowDropDownIcon fontSize="large" />
+                )}
+              </div>
+            </div>
           </NavbarButton>
         </NavbarMainContainer>
       </NavBarContainer>
@@ -200,7 +215,7 @@ function NavBar() {
               handleLogin(credentialResponse.credential);
             }}
             onError={() => {
-              console.log("Login Failed");
+              toastMessage("error", "Login Failed. Please try again");
             }}
           />
         </LoginContainer>
@@ -256,7 +271,7 @@ const NavbarButton = styled("div")({
   borderBottomLeftRadius: 10,
   borderBottomRightRadius: 10,
   position: "absolute",
-  bottom: -10,
+  bottom: -15,
   left: "45%",
   right: "45%",
   "&:hover": {

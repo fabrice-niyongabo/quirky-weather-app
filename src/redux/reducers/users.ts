@@ -26,6 +26,9 @@ const userReducer = (
       return { ...state, user: action.payload };
     case SET_USER_TOKEN:
       return { ...state, token: action.payload };
+    case RESET_USER:
+      return initialState;
+
     default:
       return state;
   }
