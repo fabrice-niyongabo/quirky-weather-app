@@ -69,3 +69,5 @@ export interface IJoke {
   error: boolean;
   joke: string;
 }
+
+export type cityTpe = "Rwandan" | "Sweden";

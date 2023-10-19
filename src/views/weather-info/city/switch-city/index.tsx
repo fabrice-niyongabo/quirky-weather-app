@@ -9,21 +9,31 @@ import {
   RadioGroup,
 } from "@mui/material";
 import QruirkyAppModal from "../../../../components/modal";
-import rwandaCities from "../../../../constants/cities/rwanda/rwanda.json";
+import rwandanCities from "../../../../constants/cities/rwanda/rwanda.json";
+import swedenCities from "../../../../constants/cities/sweden/sweden.json";
 import { useNavigate, useParams } from "react-router-dom";
+import { cityTpe } from "../../../../interfaces";
 
 interface IProps {
   showModal: boolean;
   setShowModal: any;
+  cityType: cityTpe;
 }
-function SwithCity({ showModal, setShowModal }: IProps) {
+function SwithCity({ showModal, setShowModal, cityType }: IProps) {
   const { swedenCity, rwandanCity } = useParams();
   const navigate = useNavigate();
   const [selectedCity, setSelectedCity] = useState("");
 
+  const currentCity = cityType === "Rwandan" ? rwandanCity : swedenCity;
+  const citiesToUse = cityType === "Rwandan" ? rwandanCities : swedenCities;
+
   const handleSwitchTheCity = () => {
     setShowModal(false);
-    navigate(`/${swedenCity}/${selectedCity}`);
+    const url =
+      cityType === "Rwandan"
+        ? `/${swedenCity}/${selectedCity}`
+        : `/${selectedCity}/${rwandanCity}`;
+    navigate(url);
   };
   return (
     <QruirkyAppModal
@@ -43,7 +53,7 @@ function SwithCity({ showModal, setShowModal }: IProps) {
               onChange={(e) => setSelectedCity(e.target.value)}
             >
               <Grid container>
-                {rwandaCities.map((item, index) => (
+                {citiesToUse.map((item, index) => (
                   <Grid xs={6} sm={6} md={4} key={index}>
                     <FormControlLabel
                       value={item.label}
@@ -66,13 +76,13 @@ function SwithCity({ showModal, setShowModal }: IProps) {
         >
           <Button
             onClick={() => handleSwitchTheCity()}
-            disabled={selectedCity === "" || selectedCity === rwandanCity}
+            disabled={selectedCity === "" || selectedCity === currentCity}
             variant="contained"
             size="medium"
             sx={{ textTransform: "capitalize" }}
           >
             Switch{" "}
-            {selectedCity === "" || selectedCity === rwandanCity
+            {selectedCity === "" || selectedCity === currentCity
               ? "City"
               : "to " + selectedCity}
           </Button>

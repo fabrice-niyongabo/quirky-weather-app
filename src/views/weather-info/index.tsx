@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
 import { useEffect } from "react";
-import Sweden from "./sweden";
-import Rwanda from "./rwanda";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import City from "./city";
 
 function WeatherInfo() {
   const { swedenCity, rwandanCity } = useParams();
@@ -18,8 +17,8 @@ function WeatherInfo() {
   return (
     <WeatherWrapper>
       <WeatherInfoGrid>
-        <Sweden swedenCity={swedenCity} />
-        <Rwanda rwandanCity={rwandanCity} />
+        <City cityType="Sweden" cityName={swedenCity} />
+        <City cityType="Rwandan" cityName={rwandanCity} />
       </WeatherInfoGrid>
     </WeatherWrapper>
   );

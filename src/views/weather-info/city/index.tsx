@@ -3,51 +3,73 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import { setSwedenCity, setSwedenCityImages } from "../../../redux/actions/app";
+import {
+  setRwandanCity,
+  setRwandanCityImages,
+  setSwedenCityImages,
+} from "../../../redux/actions/app";
 import SwithCity from "./switch-city";
 import Weather from "../weather";
 import Joke from "../../../components/joke";
+import { cityTpe } from "../../../interfaces";
 
 interface IProps {
-  swedenCity: string | undefined;
+  cityName: string | undefined;
+  cityType: cityTpe;
 }
-function Sweden(props: IProps) {
+function City(props: IProps) {
   const dispatch = useDispatch();
-  const { swedenCity, swedenCityImages } = useSelector(
-    (state: RootState) => state.appReducer
-  );
+  const { rwandanCity, swedenCity, rwandanCityImages, swedenCityImages } =
+    useSelector((state: RootState) => state.appReducer);
 
   const [showModal, setShowModal] = useState(false);
+
   //background image state
   let currentImageIndex = 0;
   const fallbackImage = require("../../../assets/clouds.gif");
   const defaultImage =
-    swedenCityImages.length > 0
+    props.cityType === "Rwandan"
+      ? rwandanCityImages.length > 0
+        ? rwandanCityImages[0].urls.small
+        : fallbackImage
+      : swedenCityImages.length > 0
       ? swedenCityImages[0].urls.small
       : fallbackImage;
   const [backgroundImage, setBackgroundImage] = useState(defaultImage);
+  const currentCityImages =
+    props.cityType === "Rwandan" ? rwandanCityImages : swedenCityImages;
 
   useEffect(() => {
-    if (!props.swedenCity) return;
-    //fetching images only if sweden city in the params is defferent from the store
-    if (swedenCity !== props.swedenCity) {
-      setBackgroundImage(fallbackImage);
-      dispatch(setSwedenCity(props.swedenCity));
-      fetchCityImages();
-    } else if (swedenCityImages.length === 0) {
-      fetchCityImages();
+    if (!props.cityName) return;
+    //fetching images only if city in the params is defferent from the one in the store
+    if (props.cityType === "Rwandan") {
+      if (rwandanCity !== props.cityName) {
+        setBackgroundImage(fallbackImage);
+        dispatch(setRwandanCity(props.cityName));
+        fetchCityImages();
+      } else if (rwandanCityImages.length === 0) {
+        fetchCityImages();
+      }
+    } else {
+      if (swedenCity !== props.cityName) {
+        setBackgroundImage(fallbackImage);
+        dispatch(setRwandanCity(props.cityName));
+        fetchCityImages();
+      } else if (swedenCityImages.length === 0) {
+        fetchCityImages();
+      }
     }
-  }, [props.swedenCity]);
+  }, [props.cityName]);
 
   //image interval
   useEffect(() => {
     const interval = setInterval(() => {
-      if (swedenCityImages.length > 0) {
+      if (currentCityImages.length > 0) {
         currentImageIndex += 1;
-        if (swedenCityImages[currentImageIndex]) {
-          setBackgroundImage(swedenCityImages[currentImageIndex].urls.small);
+        if (currentCityImages[currentImageIndex]) {
+          setBackgroundImage(currentCityImages[currentImageIndex].urls.small);
         } else {
-          setBackgroundImage(swedenCityImages[0].urls.small);
+          setBackgroundImage(currentCityImages[0].urls.small);
           currentImageIndex = 0;
         }
       }
@@ -56,22 +78,29 @@ function Sweden(props: IProps) {
     return () => {
       clearInterval(interval);
     };
-  }, [swedenCityImages]);
+  }, [currentCityImages]);
 
   const fetchCityImages = async () => {
     try {
       const imageReq = await fetch(
-        `https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_UN_SPLASH_ACCESS_KEY}&query=${props.swedenCity}`
+        `https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_UN_SPLASH_ACCESS_KEY}&query=${props.cityName}`
       );
       const response = await imageReq.json();
       if (response?.results) {
         if (response.results.length > 0) {
           setBackgroundImage(response.results[0].urls.small);
         }
-
-        dispatch(setSwedenCityImages(response.results));
+        if (props.cityType === "Rwandan") {
+          dispatch(setRwandanCityImages(response.results));
+        } else {
+          dispatch(setSwedenCityImages(response.results));
+        }
       } else {
-        dispatch(setSwedenCityImages([]));
+        if (props.cityType === "Rwandan") {
+          dispatch(setRwandanCityImages([]));
+        } else {
+          dispatch(setRwandanCityImages([]));
+        }
       }
     } catch (error) {
       //error while fetching city images
@@ -94,13 +123,18 @@ function Sweden(props: IProps) {
         <CityHeader>
           <CountryInfo>
             <img
-              src={require("../../../assets/sweden.png")}
+              src={
+                props.cityType === "Rwandan"
+                  ? require("../../../assets/rwanda.png")
+                  : require("../../../assets/sweden.png")
+              }
               width={20}
               height={20}
               style={{ borderRadius: 100 }}
             />
             <Typography variant="h3" fontSize={18} textTransform={"capitalize"}>
-              Sweden - {props.swedenCity}
+              {props.cityType === "Rwandan" ? "Rwanda" : "Sweden"} -{" "}
+              {props.cityName}
             </Typography>
           </CountryInfo>
           <Button
@@ -110,15 +144,19 @@ function Sweden(props: IProps) {
             <ArrowDropDownCircleIcon fontSize="large" />
           </Button>
         </CityHeader>
-        <Weather cityName={props.swedenCity} cityType="Sweden" />
+        <Weather cityName={props.cityName} cityType={props.cityType} />
         <Joke />
       </div>
-      <SwithCity setShowModal={setShowModal} showModal={showModal} />
+      <SwithCity
+        setShowModal={setShowModal}
+        showModal={showModal}
+        cityType={props.cityType}
+      />
     </CountryContainer>
   );
 }
 
-export default Sweden;
+export default City;
 
 const CityHeader = styled("div")({
   backgroundColor: "rgba(255,255,255,0.5)",
