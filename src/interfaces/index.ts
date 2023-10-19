@@ -24,6 +24,16 @@ export interface IWeather {
   description: string;
   icon: string;
 }
+
+export interface ICityWeatherInfo {
+  temperature: number;
+  windSpeed: number;
+  icon: string;
+  humidity: number;
+  pressure: number;
+  description: string;
+}
+
 export interface IweatherReaponse {
   coord: {
     lon: number;

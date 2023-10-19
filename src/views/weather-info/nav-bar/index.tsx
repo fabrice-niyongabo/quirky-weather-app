@@ -26,6 +26,9 @@ import { setUser, setUserToken } from "../../../redux/actions/user";
 function NavBar() {
   const dispatch = useDispatch();
   const { token } = useSelector((state: RootState) => state.userReducer);
+  const { swedenCity, rwandanCity } = useSelector(
+    (state: RootState) => state.appReducer
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [expandNav, setExpandNav] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -45,7 +48,26 @@ function NavBar() {
     saveWeather();
   };
 
-  const saveWeather = () => {};
+  const saveWeather = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(BACKEND_API_URL + "/weather", {
+        method: "POST",
+        body: JSON.stringify({ swedenCity, rwandanCity }),
+      });
+      const data = await response.json();
+      setIsLoading(false);
+
+      if (response.ok) {
+        toastMessage("success", data.msg);
+      } else {
+        errorHandler(data);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      errorHandler(error);
+    }
+  };
 
   const handleLogin = async (credential: string | undefined) => {
     try {

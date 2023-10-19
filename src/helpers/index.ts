@@ -38,11 +38,3 @@ export const errorHandler = (error: any) => {
   }
   handleAuthError(error);
 };
-
-export const setHeaders = (token: string) => {
-  return {
-    headers: {
-      access_token: token,
-    },
-  };
-};
