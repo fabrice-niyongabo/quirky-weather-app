@@ -184,22 +184,22 @@ function NavBar() {
         title="Share"
       >
         <Grid container>
-          <Grid md={3}>
+          <Grid item md={3}>
             <FacebookShareButton url={shareUrl}>
               <FacebookIcon style={shareIconStyles} />
             </FacebookShareButton>
           </Grid>
-          <Grid md={3}>
+          <Grid item md={3}>
             <TelegramShareButton url={shareUrl}>
               <TelegramIcon style={shareIconStyles} />
             </TelegramShareButton>
           </Grid>
-          <Grid md={3}>
+          <Grid item md={3}>
             <WhatsappShareButton url={shareUrl}>
               <WhatsappIcon style={shareIconStyles} />
             </WhatsappShareButton>
           </Grid>
-          <Grid md={3}>
+          <Grid item md={3}>
             <TwitterShareButton url={shareUrl}>
               <TwitterIcon style={shareIconStyles} />
             </TwitterShareButton>

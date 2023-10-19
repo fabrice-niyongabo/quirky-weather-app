@@ -5,7 +5,6 @@ import { Menu, MenuItem } from "@mui/material";
 import FullPageLoader from "../../../../components/full-page-loader";
 import { googleLogout } from "@react-oauth/google";
 import { resetUser } from "../../../../redux/actions/user";
-import QruirkyAppModal from "../../../../components/modal";
 import ConfirmationAlert from "../../../../components/confirmation-alert";
 
 function UserDropDown() {

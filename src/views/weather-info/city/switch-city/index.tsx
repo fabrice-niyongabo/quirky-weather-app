@@ -54,7 +54,7 @@ function SwithCity({ showModal, setShowModal, cityType }: IProps) {
             >
               <Grid container>
                 {citiesToUse.map((item, index) => (
-                  <Grid xs={6} sm={6} md={4} key={index}>
+                  <Grid item xs={6} sm={6} md={4} key={index}>
                     <FormControlLabel
                       value={item.label}
                       control={<Radio />}
