@@ -129,7 +129,10 @@ function Weather({ cityName, cityType }: IProps) {
           {errorMessage !== "" ? (
             <Box
               sx={{
-                background: "rgba(255,255,255,0.3)",
+                background: (theme) =>
+                  theme.palette.mode == "dark"
+                    ? THEME_COLORS.dark.background.light
+                    : THEME_COLORS.light.background.light,
                 borderRadius: "10px",
                 padding: "1.5rem",
                 width: "100%",
@@ -139,10 +142,16 @@ function Weather({ cityName, cityType }: IProps) {
                 justifyContent: "center",
                 flexDirection: "column",
                 rowGap: 3,
+                color: (theme) =>
+                  theme.palette.mode == "dark"
+                    ? THEME_COLORS.dark.textColor.dark
+                    : THEME_COLORS.light.textColor.dark,
               }}
             >
               <WarningIcon color="error" fontSize="large" />
-              <span style={{ textTransform: "capitalize" }}>
+              <span
+                style={{ textTransform: "capitalize", textAlign: "center" }}
+              >
                 {errorMessage}
               </span>
             </Box>
