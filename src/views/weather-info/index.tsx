@@ -30,7 +30,7 @@ function WeatherInfo() {
       } else {
         clearInterval(interval);
       }
-    }, 7000);
+    }, 10000);
 
     return () => {
       clearInterval(interval);

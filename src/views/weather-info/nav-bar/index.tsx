@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Save, Share } from "@mui/icons-material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Theme, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import QruirkyAppModal from "../../../components/modal";
 import { GoogleLogin } from "@react-oauth/google";
@@ -24,9 +24,12 @@ import { BACKEND_API_URL } from "../../../constants";
 import { setUser } from "../../../redux/actions/user";
 import UserDropDown from "./user-dropdown";
 import { useNavigate } from "react-router-dom";
+import { isMobile } from "react-device-detect";
+import MobileNav from "./mobile";
 
 function NavBar() {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const { token } = useSelector((state: RootState) => state.userReducer);
   const {
     swedenCity,
@@ -132,56 +135,72 @@ function NavBar() {
   };
   return (
     <>
-      <NavBarContainer style={{ height: expandNav ? 100 : 10 }}>
-        <NavbarMainContainer>
-          {expandNav && (
+      <NavBarContainer
+        theme={theme}
+        style={{ height: !isMobile ? (expandNav ? 100 : 10) : "auto" }}
+      >
+        <NavbarMainContainer theme={theme}>
+          {!isMobile ? (
             <>
-              <Box
-                sx={{ userSelect: "none", cursor: "pointer" }}
-                onClick={() => navigate("/")}
-              >
-                <Typography variant="h3" fontSize={20}>
-                  Quirky weather App
-                </Typography>
-              </Box>
-              <MenuList>
-                <li onClick={() => handleSave()}>
-                  <Save />
-                  <span>save</span>
-                </li>
-                <li
-                  onClick={() => {
-                    toggleNav();
-                    setShowShareModal(true);
+              {expandNav && (
+                <>
+                  <Box
+                    sx={{ userSelect: "none", cursor: "pointer" }}
+                    onClick={() => navigate("/")}
+                  >
+                    <Typography variant="h3" fontSize={20}>
+                      Quirky weather App
+                    </Typography>
+                  </Box>
+                  <MenuList>
+                    <li onClick={() => handleSave()}>
+                      <Save />
+                      <span>save</span>
+                    </li>
+                    <li
+                      onClick={() => {
+                        toggleNav();
+                        setShowShareModal(true);
+                      }}
+                    >
+                      <Share />
+                      <span>share</span>
+                    </li>
+                    {token.trim() !== "" && (
+                      <UserDropDown toggleNav={toggleNav} />
+                    )}
+                  </MenuList>
+                </>
+              )}
+              <NavbarButton onClick={() => toggleNav()}>
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "relative",
+                    display: "flex",
                   }}
                 >
-                  <Share />
-                  <span>share</span>
-                </li>
-                {token.trim() !== "" && <UserDropDown toggleNav={toggleNav} />}
-              </MenuList>
+                  <div
+                    style={{ position: "absolute", top: expandNav ? -20 : -15 }}
+                  >
+                    {expandNav ? (
+                      <ArrowDropUpIcon fontSize="large" />
+                    ) : (
+                      <ArrowDropDownIcon fontSize="large" />
+                    )}
+                  </div>
+                </div>
+              </NavbarButton>
             </>
+          ) : (
+            <MobileNav
+              handleSave={handleSave}
+              setShowShareModal={setShowShareModal}
+            />
           )}
-          <NavbarButton onClick={() => toggleNav()}>
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                alignItems: "center",
-                justifyContent: "center",
-                position: "relative",
-                display: "flex",
-              }}
-            >
-              <div style={{ position: "absolute", top: expandNav ? -20 : -15 }}>
-                {expandNav ? (
-                  <ArrowDropUpIcon fontSize="large" />
-                ) : (
-                  <ArrowDropDownIcon fontSize="large" />
-                )}
-              </div>
-            </div>
-          </NavbarButton>
         </NavbarMainContainer>
       </NavBarContainer>
       <QruirkyAppModal
@@ -298,7 +317,7 @@ const NavbarButton = styled("div")({
     cursor: "pointer",
   },
 });
-const NavbarMainContainer = styled("div")({
+const NavbarMainContainer = styled("div")(({ theme }: { theme: Theme }) => ({
   position: "relative",
   height: "100%",
   display: "flex",
@@ -306,9 +325,12 @@ const NavbarMainContainer = styled("div")({
   justifyContent: "space-between",
   padding: "0rem 5rem",
   color: "whitesmoke",
-});
+  [theme.breakpoints.down("md")]: {
+    padding: "1rem",
+  },
+}));
 
-const NavBarContainer = styled("nav")({
+const NavBarContainer = styled("nav")(({ theme }: { theme: Theme }) => ({
   top: 0,
   right: 0,
   left: 0,
@@ -317,4 +339,8 @@ const NavBarContainer = styled("nav")({
   height: 10,
   zIndex: 1,
   transition: "all 1s",
-});
+  [theme.breakpoints.down("md")]: {
+    position: "fixed",
+    height: "auto",
+  },
+}));
