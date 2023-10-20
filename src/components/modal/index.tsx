@@ -1,5 +1,14 @@
+import styled from "@emotion/styled";
 import { Close } from "@mui/icons-material";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  Paper,
+  Theme,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { ReactElement } from "react";
 import { isMobile } from "react-device-detect";
 
@@ -11,6 +20,7 @@ interface IProps {
   title?: string;
 }
 function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
+  const theme = useTheme();
   return (
     <>
       <Modal
@@ -20,7 +30,8 @@ function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={width ? { ...style, width: isMobile ? "80%" : width } : style}>
+        {/* <Box > */}
+        <StyledPaper theme={theme} sx={{ pt: 2, px: 4, pb: 3, boxShadow: 24 }}>
           <Box sx={{ position: "relative" }}>
             {title && (
               <Typography
@@ -36,8 +47,8 @@ function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
             <Box sx={{ position: "absolute", right: -20, top: 0 }}>
               <Button
                 onClick={() => setOpen(false)}
+                color="inherit"
                 sx={{
-                  color: "black",
                   fontWeight: "600",
                   padding: 0,
                   margin: 0,
@@ -50,7 +61,8 @@ function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
           </Box>
 
           <Box sx={{ mt: 2 }}>{children}</Box>
-        </Box>
+        </StyledPaper>
+        {/* </Box> */}
       </Modal>
     </>
   );
@@ -58,17 +70,17 @@ function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
 
 export default QruirkyAppModal;
 
-const style = {
+const StyledPaper = styled(Paper)(({ theme }: { theme: Theme }) => ({
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: isMobile ? "80%" : 400,
-  bgcolor: "rgba(255,255,255,0.8)",
+  // bgcolor: "rgba(255,255,255,0.8)",
+  backgroundColor:
+    theme.palette.mode === "light"
+      ? "rgba(255,255,255,0.8)"
+      : theme.palette.background.paper,
   borderRadius: "10px",
   outline: "none",
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
+}));
