@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Clear, Home } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -107,9 +108,14 @@ function SavedWeathers() {
   return (
     <MainContainer>
       <NavBarContainer>
-        <Typography variant="h3" fontSize={20}>
-          Quirky weather App
-        </Typography>
+        <Box
+          sx={{ userSelect: "none", cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        >
+          <Typography variant="h3" fontSize={20}>
+            Quirky weather App
+          </Typography>
+        </Box>
         <MenuList>
           <li onClick={() => navigate("/")}>
             <Home />
@@ -137,7 +143,9 @@ function SavedWeathers() {
                       <StyledBorderedHeaderCell>
                         Temperature
                       </StyledBorderedHeaderCell>
-                      <StyledBorderedHeaderCell>Wind</StyledBorderedHeaderCell>
+                      <StyledBorderedHeaderCell>
+                        Wind Speed
+                      </StyledBorderedHeaderCell>
                       <StyledBorderedHeaderCell>
                         Humidity
                       </StyledBorderedHeaderCell>
@@ -155,19 +163,19 @@ function SavedWeathers() {
                           <StyledTableCell rowSpan={2}>
                             {index + 1}
                           </StyledTableCell>
-                          <StyledTableCell>
+                          <StyledTableCell sx={{ textTransform: "capitalize" }}>
                             {item.swedenCityName}
                           </StyledTableCell>
                           <StyledTableCell>
                             {item.swedenCityWeatherInfo.temperature}
                           </StyledTableCell>
                           <StyledTableCell>
-                            {item.swedenCityWeatherInfo.windSpeed}
+                            {item.swedenCityWeatherInfo.windSpeed} Km/h
                           </StyledTableCell>
                           <StyledTableCell>
                             {item.swedenCityWeatherInfo.humidity}
                           </StyledTableCell>
-                          <StyledTableCell>
+                          <StyledTableCell sx={{ textTransform: "capitalize" }}>
                             {item.swedenCityWeatherInfo.description}
                           </StyledTableCell>
                           <StyledTableCell rowSpan={2}>
@@ -186,19 +194,19 @@ function SavedWeathers() {
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <StyledTableCell>
+                          <StyledTableCell sx={{ textTransform: "capitalize" }}>
                             {item.rwandanCityName}
                           </StyledTableCell>
                           <StyledTableCell>
                             {item.rwandanCityWeatherInfo.temperature}
                           </StyledTableCell>
                           <StyledTableCell>
-                            {item.rwandanCityWeatherInfo.windSpeed}
+                            {item.rwandanCityWeatherInfo.windSpeed} Km/h
                           </StyledTableCell>
                           <StyledTableCell>
                             {item.rwandanCityWeatherInfo.humidity}
                           </StyledTableCell>
-                          <StyledTableCell>
+                          <StyledTableCell sx={{ textTransform: "capitalize" }}>
                             {item.rwandanCityWeatherInfo.description}
                           </StyledTableCell>
                         </TableRow>
