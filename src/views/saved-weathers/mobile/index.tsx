@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
 import UserDropDown from "../../weather-info/nav-bar/user-dropdown";
+import ThemeSwitchButton from "../../../components/theme-switch";
 
 export default function MobileNav() {
   const { token } = useSelector((state: RootState) => state.userReducer);
@@ -41,10 +42,13 @@ export default function MobileNav() {
       >
         <MenuList>
           <li onClick={() => navigate("/")}>
-            <Home />
+            <Home sx={{ fontSize: 30 }} />
             <span>Home</span>
           </li>
           {token.trim() !== "" && <UserDropDown toggleNav={toggleMenu} />}
+          <li>
+            <ThemeSwitchButton />
+          </li>
         </MenuList>
       </MenuBox>
     </div>

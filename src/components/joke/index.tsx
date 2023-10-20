@@ -32,7 +32,7 @@ function Joke() {
     fetchAJoke();
   }, []);
   return (
-    <div style={{ color: "whitesmoke", textAlign: "center", padding: 5 }}>
+    <div style={{ textAlign: "center", padding: 5 }}>
       {isLoading ? (
         <Loader />
       ) : errorMessage.length > 0 ? (

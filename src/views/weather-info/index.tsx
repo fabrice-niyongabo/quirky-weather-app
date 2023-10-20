@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import City from "./city";
@@ -59,7 +59,11 @@ function WeatherInfo() {
           cityName={rwandanCity}
         />
       </WeatherInfoGrid>
-      {isMobile && <Joke />}
+      {isMobile && (
+        <Paper>
+          <Joke />
+        </Paper>
+      )}
     </WeatherWrapper>
   );
 }

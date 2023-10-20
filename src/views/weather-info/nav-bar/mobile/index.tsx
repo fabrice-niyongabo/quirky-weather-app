@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import UserDropDown from "../user-dropdown";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/reducers";
+import ThemeSwitchButton from "../../../../components/theme-switch";
 
 interface IProps {
   handleSave: any;
@@ -32,18 +33,53 @@ export default function MobileNav({ handleSave, setShowShareModal }: IProps) {
         sx={{ userSelect: "none", cursor: "pointer" }}
         onClick={() => navigate("/")}
       >
-        <Typography variant="h3" fontSize={20}>
+        <Typography
+          variant="h3"
+          fontSize={20}
+          sx={{
+            color: (theme) =>
+              theme.palette.mode === "dark"
+                ? theme.palette.common.white
+                : theme.palette.common.black,
+          }}
+        >
           Quirky weather App
         </Typography>
       </Box>
-      <div onClick={() => toggleMenu()}>{showMenu ? <Close /> : <Menu />}</div>
+      <div onClick={() => toggleMenu()}>
+        {showMenu ? (
+          <Close
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "dark"
+                  ? theme.palette.common.white
+                  : theme.palette.common.black,
+            }}
+          />
+        ) : (
+          <Menu
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "dark"
+                  ? theme.palette.common.white
+                  : theme.palette.common.black,
+            }}
+          />
+        )}
+      </div>
       <MenuBox
-        sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
+        sx={{
+          backgroundColor: (theme) => theme.palette.background.paper,
+          color: (theme) =>
+            theme.palette.mode === "dark"
+              ? theme.palette.common.white
+              : theme.palette.common.black,
+        }}
         style={{ right: showMenu ? -17 : -200 }}
       >
         <MenuList>
           <li onClick={() => handleSave()}>
-            <Save />
+            <Save sx={{ fontSize: 30 }} />
             <span>save</span>
           </li>
           <li
@@ -52,10 +88,13 @@ export default function MobileNav({ handleSave, setShowShareModal }: IProps) {
               setShowShareModal(true);
             }}
           >
-            <Share />
+            <Share sx={{ fontSize: 30 }} />
             <span>share</span>
           </li>
           {token.trim() !== "" && <UserDropDown toggleNav={toggleMenu} />}
+          <li>
+            <ThemeSwitchButton />
+          </li>
         </MenuList>
       </MenuBox>
     </div>

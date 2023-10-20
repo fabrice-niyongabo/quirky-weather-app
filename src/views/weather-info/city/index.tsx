@@ -49,23 +49,22 @@ function City(props: IProps) {
   useEffect(() => {
     if (!props.cityName) return;
     //fetching images only if city in the params is defferent from the one in the store
-    if (!isMobile) {
-      if (props.cityType === "Rwandan") {
-        if (rwandanCity !== props.cityName) {
-          setBackgroundImage(fallbackImage);
-          dispatch(setRwandanCity(props.cityName));
-          fetchCityImages();
-        } else if (rwandanCityImages.length === 0) {
-          fetchCityImages();
-        }
-      } else {
-        if (swedenCity !== props.cityName) {
-          setBackgroundImage(fallbackImage);
-          dispatch(setSwedenCity(props.cityName));
-          fetchCityImages();
-        } else if (swedenCityImages.length === 0) {
-          fetchCityImages();
-        }
+
+    if (props.cityType === "Rwandan") {
+      if (rwandanCity !== props.cityName) {
+        setBackgroundImage(fallbackImage);
+        dispatch(setRwandanCity(props.cityName));
+        fetchCityImages();
+      } else if (rwandanCityImages.length === 0) {
+        fetchCityImages();
+      }
+    } else {
+      if (swedenCity !== props.cityName) {
+        setBackgroundImage(fallbackImage);
+        dispatch(setSwedenCity(props.cityName));
+        fetchCityImages();
+      } else if (swedenCityImages.length === 0) {
+        fetchCityImages();
       }
     }
   }, [props.cityName]);
@@ -91,6 +90,9 @@ function City(props: IProps) {
 
   const fetchCityImages = async () => {
     try {
+      if (isMobile) {
+        return;
+      }
       const imageReq = await fetch(
         `https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_UN_SPLASH_ACCESS_KEY}&query=${props.cityName}`
       );
@@ -209,6 +211,7 @@ const CountryContentsWrapper = styled("span")(
     left: 0,
     [theme.breakpoints.down("md")]: {
       padding: 10,
+      paddingTop: 30,
     },
   })
 );

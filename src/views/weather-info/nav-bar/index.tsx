@@ -163,7 +163,7 @@ function NavBar() {
                         setShowShareModal(true);
                       }}
                     >
-                      <Share />
+                      <Share sx={{ fontSize: 40 }} />
                       <span>share</span>
                     </li>
                     {token.trim() !== "" && (

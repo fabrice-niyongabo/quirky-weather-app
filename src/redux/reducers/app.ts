@@ -1,4 +1,9 @@
-import { IAction, ICityImage, ICityWeatherInfo } from "../../interfaces";
+import {
+  IAction,
+  ICityImage,
+  ICityWeatherInfo,
+  ThemeType,
+} from "../../interfaces";
 import {
   RESET_APP,
   SET_RWANDAN_CITY,
@@ -13,7 +18,7 @@ import {
 interface IAppReducer {
   swedenCity: string;
   rwandanCity: string;
-  themeMode: "light" | "dark";
+  themeMode: ThemeType;
   rwandanCityImages: ICityImage[];
   swedenCityImages: ICityImage[];
   swedenCityWeatherInfo: ICityWeatherInfo | undefined;
