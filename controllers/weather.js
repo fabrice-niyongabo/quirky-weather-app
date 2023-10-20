@@ -4,6 +4,10 @@ const Weather = require("../model/weather");
 
 const getAll = async (req, res) => {
   try {
+    const weather = await Weather.find({ userId: req.user._id });
+    return res.status(200).send({
+      weather,
+    });
   } catch (err) {
     return res.status(400).send({
       msg: err.message,
