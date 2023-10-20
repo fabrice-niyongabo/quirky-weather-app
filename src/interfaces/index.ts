@@ -84,6 +84,8 @@ export type cityTpe = "Rwandan" | "Sweden";
 
 export type ToastMessageTypes = "error" | "info" | "success";
 
+export type ThemeType = "dark" | "light";
+
 export interface IUser {
   fName: string;
   lName: string;

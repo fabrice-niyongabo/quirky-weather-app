@@ -12,6 +12,7 @@ import rwandanCities from "../../constants/cities/rwanda/rwanda.json";
 import swedenCities from "../../constants/cities/sweden/sweden.json";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import { THEME_COLORS } from "../../constants";
 
 function Home() {
   const navigate = useNavigate();
@@ -44,11 +45,11 @@ function Home() {
           <StyledTypograph theme={theme} variant="h3">
             Select a city from Sweden
           </StyledTypograph>
-          <Select
+          <StyledSelect
+            theme={theme}
             size="medium"
             color="primary"
             fullWidth
-            sx={styles.input}
             value={swedenCity}
             disabled={disableInputs}
             onChange={(e: any) => setSwedenCity(e.target.value)}
@@ -59,17 +60,17 @@ function Home() {
                 {item.label}
               </MenuItem>
             ))}
-          </Select>
+          </StyledSelect>
         </StyledCard>
         <StyledCard theme={theme}>
           <StyledTypograph theme={theme} variant="h3">
             Select a city from Rwanda
           </StyledTypograph>
-          <Select
+          <StyledSelect
+            theme={theme}
             size="medium"
             color="primary"
             fullWidth
-            sx={styles.input}
             value={rwandanCity}
             disabled={disableInputs}
             onChange={(e: any) => setRwandaCity(e.target.value)}
@@ -80,7 +81,7 @@ function Home() {
                 {item.label}
               </MenuItem>
             ))}
-          </Select>
+          </StyledSelect>
         </StyledCard>
       </HomeContainer>
     </div>
@@ -125,6 +126,12 @@ const StyledCard = styled("div")(({ theme }: { theme: Theme }) => ({
     width: "100%",
   },
 }));
-const styles = {
-  input: { marginTop: "1rem", backgroundColor: "rgba(255,255,255,0.5)" },
-};
+
+const StyledSelect = styled(Select)(({ theme }: { theme: Theme }) => ({
+  marginTop: "1rem",
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? THEME_COLORS.dark.background.dark
+      : THEME_COLORS.light.background.dark,
+  color: "primary",
+}));

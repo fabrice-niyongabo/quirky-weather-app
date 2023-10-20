@@ -7,11 +7,13 @@ import {
   SET_SWEDEN_CITY,
   SET_SWEDEN_CITY_IMAGES,
   SET_SWEDEN_CITY_WEATHER_INFO,
+  SET_APP_THEME_MODE,
 } from "../actions/app";
 
 interface IAppReducer {
   swedenCity: string;
   rwandanCity: string;
+  themeMode: "light" | "dark";
   rwandanCityImages: ICityImage[];
   swedenCityImages: ICityImage[];
   swedenCityWeatherInfo: ICityWeatherInfo | undefined;
@@ -21,6 +23,7 @@ interface IAppReducer {
 const initialState: IAppReducer = {
   swedenCity: "",
   rwandanCity: "",
+  themeMode: "dark",
   rwandanCityImages: [],
   swedenCityImages: [],
   rwandanCityWeatherInfo: undefined,
@@ -44,6 +47,8 @@ const appReducer = (
       return { ...state, rwandanCityWeatherInfo: action.payload };
     case SET_SWEDEN_CITY_WEATHER_INFO:
       return { ...state, swedenCityWeatherInfo: action.payload };
+    case SET_APP_THEME_MODE:
+      return { ...state, themeMode: action.payload };
     case RESET_APP:
       return initialState;
     default:
