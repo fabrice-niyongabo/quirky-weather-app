@@ -31,7 +31,11 @@ function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
         aria-describedby="modal-modal-description"
       >
         {/* <Box > */}
-        <StyledPaper theme={theme} sx={{ pt: 2, px: 4, pb: 3, boxShadow: 24 }}>
+        <StyledPaper
+          theme={theme}
+          sx={{ pt: 2, px: 4, pb: 3, boxShadow: 24 }}
+          style={{ width: width ? width : isMobile ? "80%" : 450 }}
+        >
           <Box sx={{ position: "relative" }}>
             {title && (
               <Typography

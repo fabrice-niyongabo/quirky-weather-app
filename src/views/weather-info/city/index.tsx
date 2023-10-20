@@ -148,7 +148,7 @@ function City(props: IProps) {
             </Typography>
           </CountryInfo>
           <div
-            style={{ padding: 0 }}
+            style={{ padding: 0, cursor: "pointer" }}
             onClick={() => !isMobile && setShowModal(true)}
           >
             <ArrowDropDownCircleIcon fontSize="large" />
