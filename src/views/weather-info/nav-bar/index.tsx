@@ -164,7 +164,7 @@ function NavBar() {
                         setShowShareModal(true);
                       }}
                     >
-                      <Share sx={{ fontSize: 40 }} />
+                      <Share />
                       <span>share</span>
                     </li>
                     {token.trim() !== "" && (
@@ -195,12 +195,15 @@ function NavBar() {
                     position: "relative",
                     display: "flex",
                     backgroundColor: (theme) => theme.palette.background.paper,
-                    borderBottomLeftRadius: 10,
-                    borderBottomRightRadius: 10,
+                    clipPath:
+                      "polygon(0 0, 0% 20%, 0 45%, 0 40%, 23% 100%, 51% 100%, 80% 100%, 100% 43%, 100% 44%, 100% 20%, 100% 0, 41% 0)",
                   }}
                 >
                   <div
-                    style={{ position: "absolute", top: expandNav ? -20 : -15 }}
+                    style={{
+                      position: "absolute",
+                      top: expandNav ? -10 : -8,
+                    }}
                   >
                     {expandNav ? (
                       <ArrowDropUpIcon fontSize="large" />
