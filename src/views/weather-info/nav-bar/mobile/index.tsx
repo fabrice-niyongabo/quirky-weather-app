@@ -37,7 +37,10 @@ export default function MobileNav({ handleSave, setShowShareModal }: IProps) {
         </Typography>
       </Box>
       <div onClick={() => toggleMenu()}>{showMenu ? <Close /> : <Menu />}</div>
-      <MenuBox style={{ right: showMenu ? -17 : -200 }}>
+      <MenuBox
+        sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
+        style={{ right: showMenu ? -17 : -200 }}
+      >
         <MenuList>
           <li onClick={() => handleSave()}>
             <Save />
@@ -87,5 +90,4 @@ const MenuBox = styled(Box)({
   top: 40,
   width: 150,
   padding: "1rem",
-  background: "#000",
 });

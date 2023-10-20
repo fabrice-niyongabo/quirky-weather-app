@@ -6,14 +6,22 @@ export const RWANDAN_FLAG_COLORS = ["#338af3", "#ffda44", "#496e2d"];
 export const THEME_COLORS = {
   dark: {
     background: {
-      light: "rgba(0,0,0,0.9)",
+      light: "rgba(0,0,0,0.5)",
       dark: "rgba(0,0,0,0.9)",
+    },
+    textColor: {
+      light: "#FFF",
+      dark: "#CCC",
     },
   },
   light: {
     background: {
-      light: "rgba(255,255,255,0.9)",
+      light: "rgba(255,255,255,0.5)",
       dark: "rgba(255,255,255,0.9)",
+    },
+    textColor: {
+      light: "#000",
+      dark: "#333",
     },
   },
 };

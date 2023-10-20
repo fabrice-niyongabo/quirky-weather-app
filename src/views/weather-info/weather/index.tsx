@@ -15,6 +15,7 @@ import {
   setRwandanCityWeatherInfo,
   setSwedenCityWeatherInfo,
 } from "../../../redux/actions/app";
+import { THEME_COLORS } from "../../../constants";
 
 interface IProps {
   cityName: string | undefined;
@@ -150,7 +151,10 @@ function Weather({ cityName, cityType }: IProps) {
               <>
                 <Box
                   sx={{
-                    background: "rgba(255,255,255,0.5)",
+                    background: (theme) =>
+                      theme.palette.mode === "dark"
+                        ? THEME_COLORS.dark.background.light
+                        : THEME_COLORS.light.background.light,
                     borderRadius: 10,
                     minHeight: 100,
                   }}
@@ -213,7 +217,10 @@ function Weather({ cityName, cityType }: IProps) {
 export default Weather;
 
 const WeatherDetailsContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
-  background: "rgba(255,255,255,0.3)",
+  background:
+    theme.palette.mode === "dark"
+      ? THEME_COLORS.dark.background.light
+      : THEME_COLORS.light.background.light,
   borderRadius: "10px",
   padding: "1.5rem",
   width: "100%",

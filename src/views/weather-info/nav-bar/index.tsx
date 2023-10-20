@@ -334,7 +334,7 @@ const NavBarContainer = styled("nav")(({ theme }: { theme: Theme }) => ({
   top: 0,
   right: 0,
   left: 0,
-  backgroundColor: "#000",
+  backgroundColor: theme.palette.background.paper,
   position: "absolute",
   height: 10,
   zIndex: 1,

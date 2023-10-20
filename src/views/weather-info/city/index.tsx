@@ -15,6 +15,7 @@ import Joke from "../../../components/joke";
 import { cityTpe } from "../../../interfaces";
 import { toastMessage } from "../../../helpers";
 import { isMobile } from "react-device-detect";
+import { THEME_COLORS } from "../../../constants";
 
 interface IProps {
   cityName: string | undefined;
@@ -145,7 +146,7 @@ function City(props: IProps) {
             </Typography>
           </CountryInfo>
           <div
-            style={{ color: "#000", padding: 0 }}
+            style={{ padding: 0 }}
             onClick={() => !isMobile && setShowModal(true)}
           >
             <ArrowDropDownCircleIcon fontSize="large" />
@@ -172,12 +173,19 @@ const CountryNameSpan = styled("span")(({ theme }: { theme: Theme }) => ({
 }));
 
 const CityHeader = styled("div")(({ theme }: { theme: Theme }) => ({
-  backgroundColor: "rgba(255,255,255,0.5)",
+  backgroundColor:
+    theme.palette.mode === "light"
+      ? THEME_COLORS.light.background.dark
+      : THEME_COLORS.dark.background.light,
   padding: "1rem",
   borderRadius: "10px",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  color:
+    theme.palette.mode === "light"
+      ? THEME_COLORS.light.textColor.dark
+      : THEME_COLORS.dark.textColor.dark,
   [theme.breakpoints.down("md")]: {
     padding: "0.5rem",
   },
