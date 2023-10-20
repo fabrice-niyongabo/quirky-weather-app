@@ -55,6 +55,9 @@ const saveWeather = async (req, res) => {
 
 const deleteWeather = async (req, res) => {
   try {
+    const _id = req.params["id"];
+    await Weather.deleteOne({ _id, userId: req.user._id });
+    return res.status(200).json({ msg: "Weather info deleted successfull!" });
   } catch (err) {
     return res.status(400).send({
       msg: err.message,
