@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react";
-import { MenuItem, Select, Typography } from "@mui/material";
+import {
+  MenuItem,
+  Select,
+  Theme,
+  Typography,
+  useTheme,
+  withTheme,
+} from "@mui/material";
 import ParticlesBg from "./particles-bg";
 import rwandanCities from "../../constants/cities/rwanda/rwanda.json";
 import swedenCities from "../../constants/cities/sweden/sweden.json";
 import { useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
 
 function Home() {
   const navigate = useNavigate();
   const [swedenCity, setSwedenCity] = useState("");
   const [rwandanCity, setRwandaCity] = useState("");
   const [disableInputs, setDesableInputs] = useState(false);
+
+  const theme = useTheme();
 
   useEffect(() => {
     if (swedenCity !== "" && rwandanCity !== "") {
@@ -43,10 +53,10 @@ function Home() {
           gap: 10,
         }}
       >
-        <div style={styles.card}>
-          <Typography sx={{ borderBottom: "1px solid #CCC" }} variant="h3">
+        <StyledCard theme={theme}>
+          <StyledTypograph theme={theme} variant="h3">
             Select a city from Sweden
-          </Typography>
+          </StyledTypograph>
           <Select
             size="medium"
             color="primary"
@@ -63,11 +73,11 @@ function Home() {
               </MenuItem>
             ))}
           </Select>
-        </div>
-        <div style={styles.card}>
-          <Typography sx={{ borderBottom: "1px solid #CCC" }} variant="h3">
+        </StyledCard>
+        <StyledCard theme={theme}>
+          <StyledTypograph theme={theme} variant="h3">
             Select a city from Rwanda
-          </Typography>
+          </StyledTypograph>
           <Select
             size="medium"
             color="primary"
@@ -84,7 +94,7 @@ function Home() {
               </MenuItem>
             ))}
           </Select>
-        </div>
+        </StyledCard>
       </div>
     </div>
   );
@@ -92,11 +102,21 @@ function Home() {
 
 export default Home;
 
-const styles = {
-  card: {
-    padding: "5rem",
-    backgroundColor: "rgba(255,255,255,0.5)",
-    borderRadius: "10px",
+const StyledTypograph = styled(Typography)(({ theme }: { theme: Theme }) => ({
+  borderBottom: "1px solid #CCC",
+  [theme.breakpoints.down("md")]: {
+    fontSize: 14,
   },
+}));
+
+const StyledCard = styled("div")(({ theme }: { theme: Theme }) => ({
+  padding: "5rem",
+  backgroundColor: "rgba(255,255,255,0.5)",
+  borderRadius: "10px",
+  [theme.breakpoints.down("md")]: {
+    padding: "1rem",
+  },
+}));
+const styles = {
   input: { marginTop: "1rem", backgroundColor: "rgba(255,255,255,0.5)" },
 };
