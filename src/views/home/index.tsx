@@ -39,20 +39,7 @@ function Home() {
       }}
     >
       <ParticlesBg />
-      <div
-        style={{
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "5rem",
-          gap: 10,
-        }}
-      >
+      <HomeContainer theme={theme}>
         <StyledCard theme={theme}>
           <StyledTypograph theme={theme} variant="h3">
             Select a city from Sweden
@@ -95,17 +82,37 @@ function Home() {
             ))}
           </Select>
         </StyledCard>
-      </div>
+      </HomeContainer>
     </div>
   );
 }
 
 export default Home;
 
+const HomeContainer = styled("div")(({ theme }: { theme: Theme }) => ({
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  position: "absolute",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "5rem",
+  gap: 10,
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    margin: 0,
+    padding: "4rem",
+  },
+}));
+
 const StyledTypograph = styled(Typography)(({ theme }: { theme: Theme }) => ({
   borderBottom: "1px solid #CCC",
+  paddingBottom: 5,
   [theme.breakpoints.down("md")]: {
-    fontSize: 14,
+    fontSize: 20,
+    textAlign: "center",
   },
 }));
 
@@ -114,7 +121,8 @@ const StyledCard = styled("div")(({ theme }: { theme: Theme }) => ({
   backgroundColor: "rgba(255,255,255,0.5)",
   borderRadius: "10px",
   [theme.breakpoints.down("md")]: {
-    padding: "1rem",
+    padding: "2rem",
+    width: "100%",
   },
 }));
 const styles = {
