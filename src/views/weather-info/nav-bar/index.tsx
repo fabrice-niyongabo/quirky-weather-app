@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Save, Share } from "@mui/icons-material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import QruirkyAppModal from "../../../components/modal";
 import { GoogleLogin } from "@react-oauth/google";
@@ -23,6 +23,7 @@ import { errorHandler, toastMessage } from "../../../helpers";
 import { BACKEND_API_URL } from "../../../constants";
 import { setUser } from "../../../redux/actions/user";
 import UserDropDown from "./user-dropdown";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function NavBar() {
     swedenCityWeatherInfo,
     rwandanCityWeatherInfo,
   } = useSelector((state: RootState) => state.appReducer);
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [expandNav, setExpandNav] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -134,9 +136,14 @@ function NavBar() {
         <NavbarMainContainer>
           {expandNav && (
             <>
-              <Typography variant="h3" fontSize={20}>
-                Quirky weather App
-              </Typography>
+              <Box
+                sx={{ userSelect: "none", cursor: "pointer" }}
+                onClick={() => navigate("/")}
+              >
+                <Typography variant="h3" fontSize={20}>
+                  Quirky weather App
+                </Typography>
+              </Box>
               <MenuList>
                 <li onClick={() => handleSave()}>
                   <Save />
