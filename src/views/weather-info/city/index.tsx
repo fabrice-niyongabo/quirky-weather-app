@@ -1,4 +1,4 @@
-import { Button, Typography, styled } from "@mui/material";
+import { Button, Theme, Typography, styled, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
@@ -25,6 +25,8 @@ function City(props: IProps) {
     useSelector((state: RootState) => state.appReducer);
 
   const [showModal, setShowModal] = useState(false);
+
+  const theme = useTheme();
 
   //background image state
   let currentImageIndex = 0;
@@ -112,17 +114,7 @@ function City(props: IProps) {
   };
   return (
     <CountryContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <div
-        style={{
-          backgroundColor: "rgba(0,0,0,0.8)",
-          position: "absolute",
-          padding: "2rem",
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-        }}
-      >
+      <CountryContentsWrapper>
         <CityHeader>
           <CountryInfo>
             <img
@@ -137,7 +129,9 @@ function City(props: IProps) {
               alt=""
             />
             <Typography variant="h3" fontSize={18} textTransform={"capitalize"}>
-              {props.cityType === "Rwandan" ? "Rwanda" : "Sweden"} -{" "}
+              <CountryNameSpan theme={theme}>
+                {props.cityType === "Rwandan" ? "Rwanda" : "Sweden"} -{" "}
+              </CountryNameSpan>
               {props.cityName}
             </Typography>
           </CountryInfo>
@@ -150,7 +144,7 @@ function City(props: IProps) {
         </CityHeader>
         <Weather cityName={props.cityName} cityType={props.cityType} />
         <Joke />
-      </div>
+      </CountryContentsWrapper>
       <SwithCity
         setShowModal={setShowModal}
         showModal={showModal}
@@ -161,6 +155,12 @@ function City(props: IProps) {
 }
 
 export default City;
+
+const CountryNameSpan = styled("span")(({ theme }: { theme: Theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
 
 const CityHeader = styled("div")({
   backgroundColor: "rgba(255,255,255,0.5)",
@@ -177,6 +177,21 @@ const CountryInfo = styled("div")({
   alignItems: "center",
   gap: 5,
 });
+
+const CountryContentsWrapper = styled("span")(
+  ({ theme }: { theme: Theme }) => ({
+    backgroundColor: "rgba(0,0,0,0.8)",
+    position: "absolute",
+    padding: "2rem",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    [theme.breakpoints.down("md")]: {
+      padding: 10,
+    },
+  })
+);
 
 const CountryContainer = styled("div")({
   height: "100%",

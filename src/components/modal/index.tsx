@@ -1,6 +1,7 @@
 import { Close } from "@mui/icons-material";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { ReactElement } from "react";
+import { isMobile } from "react-device-detect";
 
 interface IProps {
   setOpen: any;
@@ -19,7 +20,7 @@ function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={width ? { ...style, width } : style}>
+        <Box sx={width ? { ...style, width: isMobile ? "80%" : width } : style}>
           <Box sx={{ position: "relative" }}>
             {title && (
               <Typography
@@ -62,7 +63,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: isMobile ? "80%" : 400,
   bgcolor: "rgba(255,255,255,0.8)",
   borderRadius: "10px",
   outline: "none",
