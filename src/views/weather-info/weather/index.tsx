@@ -106,7 +106,7 @@ function Weather({ cityName, cityType }: IProps) {
           <Typography
             variant="h3"
             component={"p"}
-            style={{ color: "whitesmoke" }}
+            style={{ color: "whitesmoke", textAlign: "center" }}
             fontSize={18}
           >
             Today
@@ -119,6 +119,7 @@ function Weather({ cityName, cityType }: IProps) {
               marginTop: "1rem",
               marginBottom: "1rem",
               opacity: 0.5,
+              textAlign: "center",
             }}
             fontSize={14}
           >
@@ -163,7 +164,13 @@ function Weather({ cityName, cityType }: IProps) {
                   <AnimatedNumber endValue={weatherResponse.main.temp} />
                   &deg;
                 </Typography>
-                <p style={{ color: "whitesmoke", textTransform: "capitalize" }}>
+                <p
+                  style={{
+                    color: "whitesmoke",
+                    textTransform: "capitalize",
+                    textAlign: "center",
+                  }}
+                >
                   {weatherResponse.weather[0].description}
                 </p>
                 <WeatherDetailsContainer theme={theme}>

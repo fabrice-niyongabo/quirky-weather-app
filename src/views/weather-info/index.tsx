@@ -7,9 +7,11 @@ import NavBar from "./nav-bar";
 import { isMobile } from "react-device-detect";
 import Joke from "../../components/joke";
 import { RWANDAN_FLAG_COLORS, SWEDEN_FLAG_COLORS } from "../../constants";
+import { useTheme, Theme } from "@mui/material";
 
 const mobileBgColors = [...SWEDEN_FLAG_COLORS, ...RWANDAN_FLAG_COLORS];
 function WeatherInfo() {
+  const theme = useTheme();
   const navigate = useNavigate();
   const { swedenCity, rwandanCity } = useParams();
 
@@ -45,7 +47,7 @@ function WeatherInfo() {
   return (
     <WeatherWrapper>
       <NavBar />
-      <WeatherInfoGrid>
+      <WeatherInfoGrid theme={theme}>
         <City
           mobileBgColor={mobileBgColor}
           cityType="Sweden"
@@ -71,10 +73,13 @@ const WeatherWrapper = styled(Box)({
   transition: "all 1s",
 });
 
-const WeatherInfoGrid = styled(Box)({
+const WeatherInfoGrid = styled(Box)(({ theme }: { theme: Theme }) => ({
   width: "100%",
   height: "100%",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-});
+  [theme.breakpoints.down("md")]: {
+    paddingTop: 60,
+  },
+}));

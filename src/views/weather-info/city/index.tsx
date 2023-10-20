@@ -125,7 +125,7 @@ function City(props: IProps) {
     >
       <CountryContentsWrapper>
         <CityHeader theme={theme}>
-          <CountryInfo>
+          <CountryInfo onClick={() => isMobile && setShowModal(true)}>
             <img
               src={
                 props.cityType === "Rwandan"
@@ -144,12 +144,12 @@ function City(props: IProps) {
               {props.cityName}
             </Typography>
           </CountryInfo>
-          <Button
-            sx={{ color: "#000", padding: 0 }}
-            onClick={() => setShowModal(true)}
+          <div
+            style={{ color: "#000", padding: 0 }}
+            onClick={() => !isMobile && setShowModal(true)}
           >
             <ArrowDropDownCircleIcon fontSize="large" />
-          </Button>
+          </div>
         </CityHeader>
         <Weather cityName={props.cityName} cityType={props.cityType} />
         {!isMobile && <Joke />}

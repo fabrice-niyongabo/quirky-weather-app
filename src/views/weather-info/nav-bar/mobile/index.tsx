@@ -37,7 +37,7 @@ export default function MobileNav({ handleSave, setShowShareModal }: IProps) {
         </Typography>
       </Box>
       <div onClick={() => toggleMenu()}>{showMenu ? <Close /> : <Menu />}</div>
-      <MenuBox style={{ right: showMenu ? -15 : -200 }}>
+      <MenuBox style={{ right: showMenu ? -17 : -200 }}>
         <MenuList>
           <li onClick={() => handleSave()}>
             <Save />
