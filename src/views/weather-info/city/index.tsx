@@ -134,6 +134,7 @@ function City(props: IProps) {
               width={20}
               height={20}
               style={{ borderRadius: 100 }}
+              alt=""
             />
             <Typography variant="h3" fontSize={18} textTransform={"capitalize"}>
               {props.cityType === "Rwandan" ? "Rwanda" : "Sweden"} -{" "}

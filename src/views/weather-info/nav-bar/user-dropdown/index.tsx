@@ -64,6 +64,7 @@ function UserDropDown({ toggleNav }: IProps) {
           width={30}
           height={30}
           style={{ borderRadius: "100%" }}
+          alt=""
         />
         <span>{user.fName}</span>
       </li>

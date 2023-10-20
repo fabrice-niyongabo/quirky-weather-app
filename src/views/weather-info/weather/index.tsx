@@ -154,6 +154,7 @@ function Weather({ cityName, cityType }: IProps) {
                 >
                   <img
                     src={`https://openweathermap.org/img/wn/${weatherResponse.weather[0].icon}@2x.png`}
+                    alt=""
                   />
                 </Box>
                 <Typography variant="h2" sx={{ color: "whitesmoke" }}>

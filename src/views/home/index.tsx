@@ -40,7 +40,7 @@ function Home() {
           alignItems: "center",
           justifyContent: "center",
           margin: "5rem",
-          gap: 5,
+          gap: 10,
         }}
       >
         <div style={styles.card}>
