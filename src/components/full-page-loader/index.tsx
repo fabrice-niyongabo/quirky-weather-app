@@ -11,7 +11,7 @@ const FullPageLoader: React.FC<IFullPageLoader> = (props) => {
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open={props.open}
     >
-      <CircularProgress color="primary" />
+      <CircularProgress color="inherit" />
     </Backdrop>
   );
 };

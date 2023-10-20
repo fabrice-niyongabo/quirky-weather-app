@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Clear, Home } from "@mui/icons-material";
 import {
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -19,13 +20,16 @@ import UserDropDown from "../weather-info/nav-bar/user-dropdown";
 import { useNavigate } from "react-router-dom";
 import Loader from "./loader";
 import { useEffect, useState } from "react";
-import { errorHandler } from "../../helpers";
+import { errorHandler, toastMessage } from "../../helpers";
 import { BACKEND_API_URL } from "../../constants";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers";
 import { ICityWeatherInfo } from "../../interfaces";
+import FullPageLoader from "../../components/full-page-loader";
+import ConfirmationAlert from "../../components/confirmation-alert";
 
 interface IweatherReaponse {
+  _id: string;
   userId: string;
   rwandanCityName: string;
   swedenCityName: string;
@@ -38,6 +42,13 @@ function SavedWeathers() {
   const { token } = useSelector((state: RootState) => state.userReducer);
   const [isLoading, setIsLoading] = useState(false);
   const [weatherInfo, setWeatherInfo] = useState<IweatherReaponse[]>([]);
+
+  const [selectedItem, setSelectedItem] = useState<
+    IweatherReaponse | undefined
+  >(undefined);
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [showFullLoader, setShowFullLoader] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -61,6 +72,36 @@ function SavedWeathers() {
     } catch (error) {
       setIsLoading(false);
       errorHandler(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      setShowFullLoader(true);
+      const response = await fetch(
+        BACKEND_API_URL + "/weather/" + selectedItem?._id,
+        {
+          method: "DELETE",
+          headers: {
+            token,
+          },
+        }
+      );
+      const data = await response.json();
+      setTimeout(() => {
+        setShowFullLoader(false);
+        if (response.ok) {
+          toastMessage("success", data.msg);
+          setWeatherInfo(
+            weatherInfo.filter((item) => item._id !== selectedItem?._id)
+          );
+          setSelectedItem(undefined);
+        } else {
+          errorHandler(data);
+        }
+      }, 1000);
+    } catch (error) {
+      setShowFullLoader(false);
     }
   };
   return (
@@ -133,7 +174,15 @@ function SavedWeathers() {
                             {new Date(item.createdAt).toDateString()}
                           </StyledTableCell>
                           <TableCell rowSpan={2}>
-                            <Clear />
+                            <Button
+                              color="error"
+                              onClick={() => {
+                                setSelectedItem(item);
+                                setShowAlert(true);
+                              }}
+                            >
+                              <Clear />
+                            </Button>
                           </TableCell>
                         </TableRow>
                         <TableRow>
@@ -162,6 +211,13 @@ function SavedWeathers() {
           </CardContent>
         </Card>
       </Container>
+      <ConfirmationAlert
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+        title="Do you want to delete this weather info?"
+        callback={handleDelete}
+      />
+      <FullPageLoader open={showFullLoader} />
     </MainContainer>
   );
 }
