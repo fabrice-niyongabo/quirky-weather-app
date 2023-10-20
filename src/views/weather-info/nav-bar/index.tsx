@@ -190,25 +190,33 @@ function NavBar() {
         title="Share"
       >
         <Grid container>
-          <Grid item md={3}>
-            <FacebookShareButton url={shareUrl}>
-              <FacebookIcon style={shareIconStyles} />
-            </FacebookShareButton>
+          <Grid item xs={6} sm={6} md={3}>
+            <ShareIconContainer>
+              <FacebookShareButton url={shareUrl}>
+                <FacebookIcon style={shareIconStyles} />
+              </FacebookShareButton>
+            </ShareIconContainer>
           </Grid>
-          <Grid item md={3}>
-            <TelegramShareButton url={shareUrl}>
-              <TelegramIcon style={shareIconStyles} />
-            </TelegramShareButton>
+          <Grid item xs={6} sm={6} md={3}>
+            <ShareIconContainer>
+              <TelegramShareButton url={shareUrl}>
+                <TelegramIcon style={shareIconStyles} />
+              </TelegramShareButton>
+            </ShareIconContainer>
           </Grid>
-          <Grid item md={3}>
-            <WhatsappShareButton url={shareUrl}>
-              <WhatsappIcon style={shareIconStyles} />
-            </WhatsappShareButton>
+          <Grid item xs={6} sm={6} md={3}>
+            <ShareIconContainer>
+              <WhatsappShareButton url={shareUrl}>
+                <WhatsappIcon style={shareIconStyles} />
+              </WhatsappShareButton>
+            </ShareIconContainer>
           </Grid>
-          <Grid item md={3}>
-            <TwitterShareButton url={shareUrl}>
-              <TwitterIcon style={shareIconStyles} />
-            </TwitterShareButton>
+          <Grid item xs={6} sm={6} md={3}>
+            <ShareIconContainer>
+              <TwitterShareButton url={shareUrl}>
+                <TwitterIcon style={shareIconStyles} />
+              </TwitterShareButton>
+            </ShareIconContainer>
           </Grid>
         </Grid>
       </QruirkyAppModal>
@@ -233,6 +241,12 @@ function NavBar() {
 }
 
 export default NavBar;
+
+const ShareIconContainer = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
 
 const LoginContainer = styled("div")({
   display: "flex",
