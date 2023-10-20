@@ -7,7 +7,9 @@ import {
   CardContent,
   CardHeader,
   Container,
+  Theme,
   Typography,
+  useTheme,
 } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -28,6 +30,8 @@ import { RootState } from "../../redux/reducers";
 import { ICityWeatherInfo } from "../../interfaces";
 import FullPageLoader from "../../components/full-page-loader";
 import ConfirmationAlert from "../../components/confirmation-alert";
+import { isMobile } from "react-device-detect";
+import MobileNav from "./mobile";
 
 interface IweatherReaponse {
   _id: string;
@@ -39,6 +43,7 @@ interface IweatherReaponse {
   createdAt: string;
 }
 function SavedWeathers() {
+  const theme = useTheme();
   const navigate = useNavigate();
   const { token } = useSelector((state: RootState) => state.userReducer);
   const [isLoading, setIsLoading] = useState(false);
@@ -107,24 +112,30 @@ function SavedWeathers() {
   };
   return (
     <MainContainer>
-      <NavBarContainer>
-        <Box
-          sx={{ userSelect: "none", cursor: "pointer" }}
-          onClick={() => navigate("/")}
-        >
-          <Typography variant="h3" fontSize={20}>
-            Quirky weather App
-          </Typography>
-        </Box>
-        <MenuList>
-          <li onClick={() => navigate("/")}>
-            <Home />
-            <span>Home</span>
-          </li>
-          <UserDropDown toggleNav={undefined} />
-        </MenuList>
+      <NavBarContainer theme={theme}>
+        {!isMobile ? (
+          <>
+            <Box
+              sx={{ userSelect: "none", cursor: "pointer" }}
+              onClick={() => navigate("/")}
+            >
+              <Typography variant="h3" fontSize={20}>
+                Quirky weather App
+              </Typography>
+            </Box>
+            <MenuList>
+              <li onClick={() => navigate("/")}>
+                <Home />
+                <span>Home</span>
+              </li>
+              <UserDropDown toggleNav={undefined} />
+            </MenuList>
+          </>
+        ) : (
+          <MobileNav />
+        )}
       </NavBarContainer>
-      <Container sx={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
+      <StyledContainer theme={theme}>
         <Card>
           <CardHeader
             title=" Saved weather information"
@@ -218,7 +229,7 @@ function SavedWeathers() {
             )}
           </CardContent>
         </Card>
-      </Container>
+      </StyledContainer>
       <ConfirmationAlert
         showAlert={showAlert}
         setShowAlert={setShowAlert}
@@ -231,6 +242,14 @@ function SavedWeathers() {
 }
 
 export default SavedWeathers;
+
+const StyledContainer = styled(Container)(({ theme }: { theme: Theme }) => ({
+  paddingTop: "1rem",
+  paddingBottom: "1rem",
+  [theme.breakpoints.down("md")]: {
+    paddingTop: "5rem",
+  },
+}));
 
 const BorderedHeaderCell = styled(TableCell)({
   fontWeight: "bold",
@@ -265,7 +284,7 @@ const MenuList = styled("ul")({
   },
 });
 
-const NavBarContainer = styled("nav")({
+const NavBarContainer = styled("nav")(({ theme }: { theme: Theme }) => ({
   backgroundColor: "#000",
   height: 100,
   transition: "all 1s",
@@ -274,7 +293,15 @@ const NavBarContainer = styled("nav")({
   justifyContent: "space-between",
   padding: "0rem 5rem",
   color: "whitesmoke",
-});
+  [theme.breakpoints.down("md")]: {
+    top: 0,
+    left: 0,
+    right: 0,
+    position: "fixed",
+    height: "auto",
+    padding: "1rem",
+  },
+}));
 
 const MainContainer = styled("div")({
   width: "100%",
