@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { IJoke } from "../../interfaces";
 import Loader from "./loader";
 
-function Joke() {
+interface IPorps {
+  color?: string;
+}
+function Joke({ color }: IPorps) {
   const [joke, setJoke] = useState<IJoke | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,7 +35,13 @@ function Joke() {
     fetchAJoke();
   }, []);
   return (
-    <div style={{ textAlign: "center", padding: 5 }}>
+    <div
+      style={{
+        textAlign: "center",
+        padding: 5,
+        color: color ? color : "inherit",
+      }}
+    >
       {isLoading ? (
         <Loader />
       ) : errorMessage.length > 0 ? (

@@ -20,12 +20,13 @@ import FullPageLoader from "../../../components/full-page-loader";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
 import { errorHandler, toastMessage } from "../../../helpers";
-import { BACKEND_API_URL } from "../../../constants";
+import { BACKEND_API_URL, THEME_COLORS } from "../../../constants";
 import { setUser } from "../../../redux/actions/user";
 import UserDropDown from "./user-dropdown";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import MobileNav from "./mobile";
+import ThemeSwitchButton from "../../../components/theme-switch";
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -169,18 +170,33 @@ function NavBar() {
                     {token.trim() !== "" && (
                       <UserDropDown toggleNav={toggleNav} />
                     )}
+                    <li>
+                      <ThemeSwitchButton />
+                    </li>
                   </MenuList>
                 </>
               )}
-              <NavbarButton onClick={() => toggleNav()}>
-                <div
-                  style={{
+              <NavbarButton
+                sx={{
+                  bacgroundColor: (theme) => theme.palette.background.paper,
+                  color: (theme) =>
+                    theme.palette.mode === "light"
+                      ? theme.palette.common.black
+                      : theme.palette.common.white,
+                }}
+                onClick={() => toggleNav()}
+              >
+                <Box
+                  sx={{
                     width: "100%",
                     height: "100%",
                     alignItems: "center",
                     justifyContent: "center",
                     position: "relative",
                     display: "flex",
+                    backgroundColor: (theme) => theme.palette.background.paper,
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
                   }}
                 >
                   <div
@@ -192,7 +208,7 @@ function NavBar() {
                       <ArrowDropDownIcon fontSize="large" />
                     )}
                   </div>
-                </div>
+                </Box>
               </NavbarButton>
             </>
           ) : (
@@ -300,10 +316,8 @@ const MenuList = styled("ul")({
   },
 });
 
-const NavbarButton = styled("div")({
+const NavbarButton = styled(Box)({
   height: 15,
-  color: "whitesmoke",
-  backgroundColor: "#000",
   display: "flex",
   alignItems: "flex-end",
   justifyContent: "center",
@@ -324,7 +338,10 @@ const NavbarMainContainer = styled("div")(({ theme }: { theme: Theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   padding: "0rem 5rem",
-  color: "whitesmoke",
+  color:
+    theme.palette.mode === "dark"
+      ? THEME_COLORS.dark.textColor.dark
+      : THEME_COLORS.light.textColor.dark,
   [theme.breakpoints.down("md")]: {
     padding: "1rem",
   },

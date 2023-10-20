@@ -32,6 +32,7 @@ import FullPageLoader from "../../components/full-page-loader";
 import ConfirmationAlert from "../../components/confirmation-alert";
 import { isMobile } from "react-device-detect";
 import MobileNav from "./mobile";
+import ThemeSwitchButton from "../../components/theme-switch";
 
 interface IweatherReaponse {
   _id: string;
@@ -129,6 +130,9 @@ function SavedWeathers() {
                 <span>Home</span>
               </li>
               <UserDropDown toggleNav={undefined} />
+              <li>
+                <ThemeSwitchButton />
+              </li>
             </MenuList>
           </>
         ) : (

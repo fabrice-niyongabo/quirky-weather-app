@@ -155,7 +155,7 @@ function City(props: IProps) {
           </div>
         </CityHeader>
         <Weather cityName={props.cityName} cityType={props.cityType} />
-        {!isMobile && <Joke />}
+        {!isMobile && <Joke color="whitesmoke" />}
       </CountryContentsWrapper>
       <SwithCity
         setShowModal={setShowModal}
@@ -200,21 +200,20 @@ const CountryInfo = styled("div")({
   gap: 5,
 });
 
-const CountryContentsWrapper = styled("span")(
-  ({ theme }: { theme: Theme }) => ({
-    backgroundColor: "rgba(0,0,0,0.8)",
-    position: "absolute",
-    padding: "2rem",
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    [theme.breakpoints.down("md")]: {
-      padding: 10,
-      paddingTop: 30,
-    },
-  })
-);
+const CountryContentsWrapper = styled("div")(({ theme }: { theme: Theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark" ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.8)",
+  position: "absolute",
+  padding: "2rem",
+  top: 0,
+  bottom: 0,
+  right: 0,
+  left: 0,
+  [theme.breakpoints.down("md")]: {
+    padding: 10,
+    paddingTop: 30,
+  },
+}));
 
 const CountryContainer = styled("div")({
   height: "100%",
