@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import City from "./city";
 import NavBar from "./nav-bar";
+import { isMobile } from "react-device-detect";
+import Joke from "../../components/joke";
 
 function WeatherInfo() {
   const { swedenCity, rwandanCity } = useParams();
@@ -21,6 +23,7 @@ function WeatherInfo() {
         <City cityType="Sweden" cityName={swedenCity} />
         <City cityType="Rwandan" cityName={rwandanCity} />
       </WeatherInfoGrid>
+      {isMobile && <Joke />}
     </WeatherWrapper>
   );
 }

@@ -14,6 +14,7 @@ import Weather from "../weather";
 import Joke from "../../../components/joke";
 import { cityTpe } from "../../../interfaces";
 import { toastMessage } from "../../../helpers";
+import { isMobile } from "react-device-detect";
 
 interface IProps {
   cityName: string | undefined;
@@ -115,7 +116,7 @@ function City(props: IProps) {
   return (
     <CountryContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
       <CountryContentsWrapper>
-        <CityHeader>
+        <CityHeader theme={theme}>
           <CountryInfo>
             <img
               src={
@@ -143,7 +144,7 @@ function City(props: IProps) {
           </Button>
         </CityHeader>
         <Weather cityName={props.cityName} cityType={props.cityType} />
-        <Joke />
+        {!isMobile && <Joke />}
       </CountryContentsWrapper>
       <SwithCity
         setShowModal={setShowModal}
@@ -162,14 +163,17 @@ const CountryNameSpan = styled("span")(({ theme }: { theme: Theme }) => ({
   },
 }));
 
-const CityHeader = styled("div")({
+const CityHeader = styled("div")(({ theme }: { theme: Theme }) => ({
   backgroundColor: "rgba(255,255,255,0.5)",
   padding: "1rem",
   borderRadius: "10px",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-});
+  [theme.breakpoints.down("md")]: {
+    padding: "0.5rem",
+  },
+}));
 
 const CountryInfo = styled("div")({
   display: "flex",

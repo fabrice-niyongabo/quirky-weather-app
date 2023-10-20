@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import Loader from "./loader";
-import { Box, Typography } from "@mui/material";
+import { Box, Theme, Typography, useTheme } from "@mui/material";
 import { ICityWeatherInfo, IweatherReaponse } from "../../../interfaces";
 import AirIcon from "@mui/icons-material/Air";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
@@ -28,6 +28,8 @@ function Weather({ cityName, cityType }: IProps) {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const theme = useTheme();
 
   useEffect(() => {
     if (cityName) {
@@ -164,18 +166,7 @@ function Weather({ cityName, cityType }: IProps) {
                 <p style={{ color: "whitesmoke", textTransform: "capitalize" }}>
                   {weatherResponse.weather[0].description}
                 </p>
-                <Box
-                  sx={{
-                    background: "rgba(255,255,255,0.3)",
-                    borderRadius: "10px",
-                    padding: "1.5rem",
-                    width: "100%",
-                    marginTop: "1rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    rowGap: 3,
-                  }}
-                >
+                <WeatherDetailsContainer theme={theme}>
                   <IconContiner>
                     <AirIcon sx={{ color: "white" }} />
                     <p style={{ padding: 0, margin: 0, fontWeight: "600" }}>
@@ -202,7 +193,7 @@ function Weather({ cityName, cityType }: IProps) {
                     </p>
                     <small style={{ opacity: 0.5 }}>Pressure</small>
                   </IconContiner>
-                </Box>
+                </WeatherDetailsContainer>
               </>
             )
           )}
@@ -213,6 +204,21 @@ function Weather({ cityName, cityType }: IProps) {
 }
 
 export default Weather;
+
+const WeatherDetailsContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
+  background: "rgba(255,255,255,0.3)",
+  borderRadius: "10px",
+  padding: "1.5rem",
+  width: "100%",
+  marginTop: "1rem",
+  display: "flex",
+  justifyContent: "space-between",
+  rowGap: 3,
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    gap: 10,
+  },
+}));
 
 const IconContiner = styled("div")({
   display: "flex",
