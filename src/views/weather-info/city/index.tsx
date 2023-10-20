@@ -19,6 +19,7 @@ import { isMobile } from "react-device-detect";
 interface IProps {
   cityName: string | undefined;
   cityType: cityTpe;
+  mobileBgColor: string;
 }
 function City(props: IProps) {
   const dispatch = useDispatch();
@@ -47,21 +48,23 @@ function City(props: IProps) {
   useEffect(() => {
     if (!props.cityName) return;
     //fetching images only if city in the params is defferent from the one in the store
-    if (props.cityType === "Rwandan") {
-      if (rwandanCity !== props.cityName) {
-        setBackgroundImage(fallbackImage);
-        dispatch(setRwandanCity(props.cityName));
-        fetchCityImages();
-      } else if (rwandanCityImages.length === 0) {
-        fetchCityImages();
-      }
-    } else {
-      if (swedenCity !== props.cityName) {
-        setBackgroundImage(fallbackImage);
-        dispatch(setSwedenCity(props.cityName));
-        fetchCityImages();
-      } else if (swedenCityImages.length === 0) {
-        fetchCityImages();
+    if (!isMobile) {
+      if (props.cityType === "Rwandan") {
+        if (rwandanCity !== props.cityName) {
+          setBackgroundImage(fallbackImage);
+          dispatch(setRwandanCity(props.cityName));
+          fetchCityImages();
+        } else if (rwandanCityImages.length === 0) {
+          fetchCityImages();
+        }
+      } else {
+        if (swedenCity !== props.cityName) {
+          setBackgroundImage(fallbackImage);
+          dispatch(setSwedenCity(props.cityName));
+          fetchCityImages();
+        } else if (swedenCityImages.length === 0) {
+          fetchCityImages();
+        }
       }
     }
   }, [props.cityName]);
@@ -114,7 +117,12 @@ function City(props: IProps) {
     }
   };
   return (
-    <CountryContainer style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <CountryContainer
+      style={{
+        backgroundImage: isMobile ? "" : `url(${backgroundImage})`,
+        backgroundColor: isMobile ? props.mobileBgColor : "",
+      }}
+    >
       <CountryContentsWrapper>
         <CityHeader theme={theme}>
           <CountryInfo>

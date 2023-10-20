@@ -1,16 +1,42 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import City from "./city";
 import NavBar from "./nav-bar";
 import { isMobile } from "react-device-detect";
 import Joke from "../../components/joke";
+import { RWANDAN_FLAG_COLORS, SWEDEN_FLAG_COLORS } from "../../constants";
 
+const mobileBgColors = [...SWEDEN_FLAG_COLORS, ...RWANDAN_FLAG_COLORS];
 function WeatherInfo() {
-  const { swedenCity, rwandanCity } = useParams();
   const navigate = useNavigate();
+  const { swedenCity, rwandanCity } = useParams();
+
+  let currentMobileBgColorIndex = 0;
+  const [mobileBgColor, setMobileBgColor] = useState(mobileBgColors[0]);
+
+  //image interval
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isMobile) {
+        currentMobileBgColorIndex += 1;
+        if (mobileBgColors[currentMobileBgColorIndex]) {
+          setMobileBgColor(mobileBgColors[currentMobileBgColorIndex]);
+        } else {
+          setMobileBgColor(mobileBgColors[0]);
+          currentMobileBgColorIndex = 0;
+        }
+      } else {
+        clearInterval(interval);
+      }
+    }, 7000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   useEffect(() => {
     if (!swedenCity || !rwandanCity) {
       navigate("/");
@@ -20,8 +46,16 @@ function WeatherInfo() {
     <WeatherWrapper>
       <NavBar />
       <WeatherInfoGrid>
-        <City cityType="Sweden" cityName={swedenCity} />
-        <City cityType="Rwandan" cityName={rwandanCity} />
+        <City
+          mobileBgColor={mobileBgColor}
+          cityType="Sweden"
+          cityName={swedenCity}
+        />
+        <City
+          mobileBgColor={mobileBgColor}
+          cityType="Rwandan"
+          cityName={rwandanCity}
+        />
       </WeatherInfoGrid>
       {isMobile && <Joke />}
     </WeatherWrapper>
