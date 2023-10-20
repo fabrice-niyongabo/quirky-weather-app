@@ -34,7 +34,9 @@ function QruirkyAppModal({ open, setOpen, width, children, title }: IProps) {
         <StyledPaper
           theme={theme}
           sx={{ pt: 2, px: 4, pb: 3, boxShadow: 24 }}
-          style={{ width: width ? width : isMobile ? "80%" : 450 }}
+          style={{
+            width: width ? (isMobile ? "80%" : width) : isMobile ? "80%" : 450,
+          }}
         >
           <Box sx={{ position: "relative" }}>
             {title && (

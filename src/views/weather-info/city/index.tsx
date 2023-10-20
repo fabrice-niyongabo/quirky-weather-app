@@ -149,7 +149,7 @@ function City(props: IProps) {
           </CountryInfo>
           <div
             style={{ padding: 0, cursor: "pointer" }}
-            onClick={() => !isMobile && setShowModal(true)}
+            onClick={() => setShowModal(true)}
           >
             <ArrowDropDownCircleIcon fontSize="large" />
           </div>
