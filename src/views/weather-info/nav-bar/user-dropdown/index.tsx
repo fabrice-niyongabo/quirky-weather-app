@@ -36,12 +36,16 @@ function UserDropDown({ toggleNav }: IProps) {
         dispatch(resetUser());
         setIsLoading(false);
         toastMessage("success", "Logged out!");
-        toggleNav();
+        if (toggleNav) {
+          toggleNav();
+        }
       } catch (error) {
         dispatch(resetUser());
         setIsLoading(false);
         toastMessage("success", "Logged out!");
-        toggleNav();
+        if (toggleNav) {
+          toggleNav();
+        }
       }
     }, 1000);
   };
