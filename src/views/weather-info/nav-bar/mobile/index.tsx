@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Close, Menu, Save, Share } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserDropDown from "../user-dropdown";
 import { useSelector } from "react-redux";

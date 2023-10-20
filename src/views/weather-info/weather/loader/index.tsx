@@ -1,7 +1,9 @@
-import { Skeleton } from "@mui/material";
-import React from "react";
+import styled from "@emotion/styled";
+import { Skeleton, Theme, useTheme } from "@mui/material";
+import { THEME_COLORS } from "../../../../constants";
 
 function Loader() {
+  const theme = useTheme();
   return (
     <div
       style={{
@@ -11,42 +13,53 @@ function Loader() {
         flexDirection: "column",
       }}
     >
-      <Skeleton
+      <StyledSkeleton
+        theme={theme}
         variant="rectangular"
         width={100}
         height={20}
         style={{
-          background: "rgba(255,255,255,0.5)",
           marginBottom: "1rem",
           marginTop: "1rem",
         }}
       />
-      <Skeleton
+      <StyledSkeleton
+        theme={theme}
         variant="rectangular"
         width={150}
         height={10}
-        style={{ background: "rgba(255,255,255,0.5)", marginBottom: "1rem" }}
+        style={{ marginBottom: "1rem" }}
       />
-      <Skeleton
+      <StyledSkeleton
+        theme={theme}
         variant="circular"
         width={150}
         height={150}
-        style={{ background: "rgba(255,255,255,0.5)", marginBottom: "1rem" }}
+        style={{ marginBottom: "1rem" }}
       />
-      <Skeleton
+      <StyledSkeleton
+        theme={theme}
         variant="rectangular"
         width={170}
         height={40}
-        style={{ background: "rgba(255,255,255,0.5)", marginBottom: "2rem" }}
+        style={{ marginBottom: "2rem" }}
       />
-      <Skeleton
+      <StyledSkeleton
+        theme={theme}
         variant="rectangular"
         width={"100%"}
         height={120}
-        style={{ background: "rgba(255,255,255,0.5)", borderRadius: "10px" }}
+        style={{ borderRadius: "10px" }}
       />
     </div>
   );
 }
 
 export default Loader;
+
+const StyledSkeleton = styled(Skeleton)(({ theme }: { theme: Theme }) => ({
+  background:
+    theme.palette.mode === "dark"
+      ? THEME_COLORS.dark.background.light
+      : THEME_COLORS.light.background.light,
+}));
