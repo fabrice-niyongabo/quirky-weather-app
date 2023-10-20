@@ -145,87 +145,105 @@ function SavedWeathers() {
             {isLoading ? (
               <Loader />
             ) : (
-              <TableContainer component={Paper} variant="outlined">
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <StyledBorderedHeaderCell>#</StyledBorderedHeaderCell>
-                      <StyledBorderedHeaderCell>City</StyledBorderedHeaderCell>
-                      <StyledBorderedHeaderCell>
-                        Temperature
-                      </StyledBorderedHeaderCell>
-                      <StyledBorderedHeaderCell>
-                        Wind Speed
-                      </StyledBorderedHeaderCell>
-                      <StyledBorderedHeaderCell>
-                        Humidity
-                      </StyledBorderedHeaderCell>
-                      <StyledBorderedHeaderCell>
-                        Description
-                      </StyledBorderedHeaderCell>
-                      <StyledBorderedHeaderCell>Date</StyledBorderedHeaderCell>
-                      <BorderedHeaderCell>Action</BorderedHeaderCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {weatherInfo.map((item, index) => (
-                      <>
-                        <TableRow>
-                          <StyledTableCell rowSpan={2}>
-                            {index + 1}
-                          </StyledTableCell>
-                          <StyledTableCell sx={{ textTransform: "capitalize" }}>
-                            {item.swedenCityName}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {item.swedenCityWeatherInfo.temperature}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {item.swedenCityWeatherInfo.windSpeed} Km/h
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {item.swedenCityWeatherInfo.humidity}
-                          </StyledTableCell>
-                          <StyledTableCell sx={{ textTransform: "capitalize" }}>
-                            {item.swedenCityWeatherInfo.description}
-                          </StyledTableCell>
-                          <StyledTableCell rowSpan={2}>
-                            {new Date(item.createdAt).toDateString()}
-                          </StyledTableCell>
-                          <TableCell rowSpan={2}>
-                            <Button
-                              color="error"
-                              onClick={() => {
-                                setSelectedItem(item);
-                                setShowAlert(true);
-                              }}
+              <>
+                <TableContainer component={Paper} variant="outlined">
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <StyledBorderedHeaderCell>#</StyledBorderedHeaderCell>
+                        <StyledBorderedHeaderCell>
+                          City
+                        </StyledBorderedHeaderCell>
+                        <StyledBorderedHeaderCell>
+                          Temperature
+                        </StyledBorderedHeaderCell>
+                        <StyledBorderedHeaderCell>
+                          Wind Speed
+                        </StyledBorderedHeaderCell>
+                        <StyledBorderedHeaderCell>
+                          Humidity
+                        </StyledBorderedHeaderCell>
+                        <StyledBorderedHeaderCell>
+                          Description
+                        </StyledBorderedHeaderCell>
+                        <StyledBorderedHeaderCell>
+                          Date
+                        </StyledBorderedHeaderCell>
+                        <BorderedHeaderCell>Action</BorderedHeaderCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {weatherInfo.map((item, index) => (
+                        <>
+                          <TableRow>
+                            <StyledTableCell rowSpan={2}>
+                              {index + 1}
+                            </StyledTableCell>
+                            <StyledTableCell
+                              sx={{ textTransform: "capitalize" }}
                             >
-                              <Clear />
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <StyledTableCell sx={{ textTransform: "capitalize" }}>
-                            {item.rwandanCityName}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {item.rwandanCityWeatherInfo.temperature}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {item.rwandanCityWeatherInfo.windSpeed} Km/h
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {item.rwandanCityWeatherInfo.humidity}
-                          </StyledTableCell>
-                          <StyledTableCell sx={{ textTransform: "capitalize" }}>
-                            {item.rwandanCityWeatherInfo.description}
-                          </StyledTableCell>
-                        </TableRow>
-                      </>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                              {item.swedenCityName}
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              {item.swedenCityWeatherInfo.temperature}
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              {item.swedenCityWeatherInfo.windSpeed} Km/h
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              {item.swedenCityWeatherInfo.humidity}
+                            </StyledTableCell>
+                            <StyledTableCell
+                              sx={{ textTransform: "capitalize" }}
+                            >
+                              {item.swedenCityWeatherInfo.description}
+                            </StyledTableCell>
+                            <StyledTableCell rowSpan={2}>
+                              {new Date(item.createdAt).toDateString()}
+                            </StyledTableCell>
+                            <TableCell rowSpan={2}>
+                              <Button
+                                color="error"
+                                onClick={() => {
+                                  setSelectedItem(item);
+                                  setShowAlert(true);
+                                }}
+                              >
+                                <Clear />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <StyledTableCell
+                              sx={{ textTransform: "capitalize" }}
+                            >
+                              {item.rwandanCityName}
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              {item.rwandanCityWeatherInfo.temperature}
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              {item.rwandanCityWeatherInfo.windSpeed} Km/h
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              {item.rwandanCityWeatherInfo.humidity}
+                            </StyledTableCell>
+                            <StyledTableCell
+                              sx={{ textTransform: "capitalize" }}
+                            >
+                              {item.rwandanCityWeatherInfo.description}
+                            </StyledTableCell>
+                          </TableRow>
+                        </>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+
+                {weatherInfo.length === 0 && (
+                  <Typography>No data found</Typography>
+                )}
+              </>
             )}
           </CardContent>
         </Card>
@@ -285,14 +303,14 @@ const MenuList = styled("ul")({
 });
 
 const NavBarContainer = styled("nav")(({ theme }: { theme: Theme }) => ({
-  backgroundColor: "#000",
+  backgroundColor: theme.palette.background.paper,
   height: 100,
   transition: "all 1s",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
   padding: "0rem 5rem",
-  color: "whitesmoke",
+  //   color: "whitesmoke",
   [theme.breakpoints.down("md")]: {
     top: 0,
     left: 0,
@@ -303,10 +321,10 @@ const NavBarContainer = styled("nav")(({ theme }: { theme: Theme }) => ({
   },
 }));
 
-const MainContainer = styled("div")({
+const MainContainer = styled(Paper)({
   width: "100%",
   minHeight: "100vh",
-  backgroundColor: "#f2f2f2",
+  //   backgroundColor: "#f2f2f2",
   margin: 0,
   top: 0,
 });

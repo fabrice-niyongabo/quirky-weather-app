@@ -33,7 +33,12 @@ export default function MobileNav() {
         </Typography>
       </Box>
       <div onClick={() => toggleMenu()}>{showMenu ? <Close /> : <Menu />}</div>
-      <MenuBox style={{ right: showMenu ? -17 : -200 }}>
+      <MenuBox
+        sx={{
+          right: showMenu ? -17 : -200,
+          background: (theme) => theme.palette.background.paper,
+        }}
+      >
         <MenuList>
           <li onClick={() => navigate("/")}>
             <Home />
@@ -74,5 +79,4 @@ const MenuBox = styled(Box)({
   top: 40,
   width: 150,
   padding: "1rem",
-  background: "#000",
 });
