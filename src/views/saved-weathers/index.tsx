@@ -112,7 +112,14 @@ function SavedWeathers() {
     }
   };
   return (
-    <MainContainer>
+    <MainContainer
+      sx={{
+        background: (theme) =>
+          theme.palette.mode === "dark"
+            ? theme.palette.background.paper
+            : "#f2f2f2",
+      }}
+    >
       <NavBarContainer theme={theme}>
         {!isMobile ? (
           <>

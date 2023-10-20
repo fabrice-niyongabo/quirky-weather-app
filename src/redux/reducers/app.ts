@@ -28,7 +28,7 @@ interface IAppReducer {
 const initialState: IAppReducer = {
   swedenCity: "",
   rwandanCity: "",
-  themeMode: "dark",
+  themeMode: "light",
   rwandanCityImages: [],
   swedenCityImages: [],
   rwandanCityWeatherInfo: undefined,
