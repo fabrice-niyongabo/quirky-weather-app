@@ -22,7 +22,7 @@ function App() {
               main: RWANDAN_FLAG_COLORS[1],
             },
             background: {
-              default: RWANDAN_FLAG_COLORS[2],
+              default: "#243716",
             },
           },
         })
@@ -33,7 +33,7 @@ function App() {
               main: SWEDEN_FLAG_COLORS[0],
             },
             background: {
-              default: SWEDEN_FLAG_COLORS[0],
+              default: "#001024",
             },
           },
         });

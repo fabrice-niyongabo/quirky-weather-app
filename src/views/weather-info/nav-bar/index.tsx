@@ -213,7 +213,7 @@ function NavBar() {
                   <div
                     style={{
                       position: "absolute",
-                      top: expandNav ? -10 : -8,
+                      top: expandNav ? -10 : -14,
                     }}
                   >
                     {expandNav ? (

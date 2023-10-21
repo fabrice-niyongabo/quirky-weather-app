@@ -321,7 +321,7 @@ const NavBarContainer = styled("nav")(({ theme }: { theme: Theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   padding: "0rem 5rem",
-  //   color: "whitesmoke",
+  color: theme.palette.common.white,
   [theme.breakpoints.down("md")]: {
     top: 0,
     left: 0,
