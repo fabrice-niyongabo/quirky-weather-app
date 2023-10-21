@@ -31,7 +31,10 @@ function ConfirmationAlert({
       >
         <DialogTitle
           id="alert-dialog-title"
-          sx={{ borderBottom: "1px solid #CCC" }}
+          sx={{
+            borderBottom: "1px solid #CCC",
+            background: (theme) => theme.palette.background.default,
+          }}
         >
           <Box
             sx={{
@@ -44,21 +47,37 @@ function ConfirmationAlert({
             {/* <WarningIcon style={{ fontWeight: "500", color: "#000" }} /> */}
             <Typography
               variant="h4"
-              style={{ fontSize: 18, fontWeight: "600", color: "#000" }}
+              sx={{
+                fontSize: 18,
+                fontWeight: "600",
+                color: (theme) => theme.palette.common.white,
+              }}
             >
               Confirmation
             </Typography>
           </Box>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent
+          sx={{
+            background: (theme) => theme.palette.background.default,
+          }}
+        >
           <DialogContentText
             id="alert-dialog-description"
-            sx={{ paddingTop: "1rem", fontSize: 14 }}
+            sx={{
+              paddingTop: "1rem",
+              fontSize: 14,
+              color: (theme) => theme.palette.common.white,
+            }}
           >
             {title ? title : " Do you want to perform this process?"}
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions
+          sx={{
+            background: (theme) => theme.palette.background.default,
+          }}
+        >
           <Button onClick={() => setShowAlert(false)} color="primary">
             Not Sure
           </Button>
