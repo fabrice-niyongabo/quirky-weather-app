@@ -5,6 +5,7 @@ import ProtectedRoute from "./controllers/protected-route";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/reducers";
+import { RWANDAN_FLAG_COLORS, SWEDEN_FLAG_COLORS } from "./constants";
 
 const Home = lazy(() => import("./views/home"));
 const WeatherInfo = lazy(() => import("./views/weather-info"));
@@ -17,11 +18,23 @@ function App() {
       ? createTheme({
           palette: {
             mode: "dark",
+            primary: {
+              main: RWANDAN_FLAG_COLORS[1],
+            },
+            background: {
+              default: RWANDAN_FLAG_COLORS[2],
+            },
           },
         })
       : createTheme({
           palette: {
             mode: "light",
+            primary: {
+              main: SWEDEN_FLAG_COLORS[0],
+            },
+            background: {
+              default: SWEDEN_FLAG_COLORS[0],
+            },
           },
         });
   return (

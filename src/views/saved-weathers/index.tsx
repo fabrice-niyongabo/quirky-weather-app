@@ -314,7 +314,7 @@ const MenuList = styled("ul")({
 });
 
 const NavBarContainer = styled("nav")(({ theme }: { theme: Theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: theme.palette.background.default,
   height: 100,
   transition: "all 1s",
   display: "flex",

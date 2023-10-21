@@ -29,15 +29,34 @@ export default function MobileNav() {
         sx={{ userSelect: "none", cursor: "pointer" }}
         onClick={() => navigate("/")}
       >
-        <Typography variant="h3" fontSize={20}>
+        <Typography
+          variant="h3"
+          fontSize={20}
+          sx={{
+            color: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.common.white
+                : theme.palette.common.white,
+          }}
+        >
           Quirky weather App
         </Typography>
       </Box>
-      <div onClick={() => toggleMenu()}>{showMenu ? <Close /> : <Menu />}</div>
+      <div onClick={() => toggleMenu()}>
+        {showMenu ? (
+          <Close sx={{ color: (theme) => theme.palette.common.white }} />
+        ) : (
+          <Menu sx={{ color: (theme) => theme.palette.common.white }} />
+        )}
+      </div>
       <MenuBox
         sx={{
           right: showMenu ? -17 : -200,
-          background: (theme) => theme.palette.background.paper,
+          background: (theme) => theme.palette.background.default,
+          color: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.common.white
+              : theme.palette.common.white,
         }}
       >
         <MenuList>

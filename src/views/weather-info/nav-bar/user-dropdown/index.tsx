@@ -86,7 +86,14 @@ function UserDropDown({ toggleNav }: IProps) {
             <span style={{ fontSize: 12 }}>{user.email}</span>
           </div>
         </MenuItem>
-        <MenuItem onClick={() => navigate("/weathers")}>Saved Weather</MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            navigate("/weathers");
+          }}
+        >
+          Saved Weather
+        </MenuItem>
         <MenuItem onClick={() => setShowAlert(true)}>Logout</MenuItem>
       </Menu>
       <ConfirmationAlert

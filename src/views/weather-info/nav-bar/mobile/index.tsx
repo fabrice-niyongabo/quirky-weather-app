@@ -40,7 +40,7 @@ export default function MobileNav({ handleSave, setShowShareModal }: IProps) {
             color: (theme) =>
               theme.palette.mode === "dark"
                 ? theme.palette.common.white
-                : theme.palette.common.black,
+                : theme.palette.common.white,
           }}
         >
           Quirky weather App
@@ -53,7 +53,7 @@ export default function MobileNav({ handleSave, setShowShareModal }: IProps) {
               color: (theme) =>
                 theme.palette.mode === "dark"
                   ? theme.palette.common.white
-                  : theme.palette.common.black,
+                  : theme.palette.common.white,
             }}
           />
         ) : (
@@ -62,18 +62,18 @@ export default function MobileNav({ handleSave, setShowShareModal }: IProps) {
               color: (theme) =>
                 theme.palette.mode === "dark"
                   ? theme.palette.common.white
-                  : theme.palette.common.black,
+                  : theme.palette.common.white,
             }}
           />
         )}
       </div>
       <MenuBox
         sx={{
-          backgroundColor: (theme) => theme.palette.background.paper,
+          backgroundColor: (theme) => theme.palette.background.default,
           color: (theme) =>
             theme.palette.mode === "dark"
               ? theme.palette.common.white
-              : theme.palette.common.black,
+              : theme.palette.common.white,
         }}
         style={{ right: showMenu ? -17 : -200 }}
       >
