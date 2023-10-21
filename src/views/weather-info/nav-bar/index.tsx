@@ -105,6 +105,7 @@ function NavBar() {
   const handleLogin = async (credential: string | undefined) => {
     try {
       setIsLoading(true);
+      setShowLoginModal(false);
       const response = await fetch(BACKEND_API_URL + "/users/login", {
         method: "POST",
         body: JSON.stringify({ credential }),
@@ -149,11 +150,20 @@ function NavBar() {
                     sx={{ userSelect: "none", cursor: "pointer" }}
                     onClick={() => navigate("/")}
                   >
-                    <Typography variant="h3" fontSize={20}>
+                    <Typography
+                      variant="h3"
+                      fontSize={20}
+                      sx={{
+                        color: (theme) =>
+                          theme.palette.mode === "light"
+                            ? theme.palette.common.white
+                            : theme.palette.common.white,
+                      }}
+                    >
                       Quirky weather App
                     </Typography>
                   </Box>
-                  <MenuList>
+                  <MenuList theme={theme}>
                     <li onClick={() => handleSave()}>
                       <Save />
                       <span>save</span>
@@ -178,10 +188,10 @@ function NavBar() {
               )}
               <NavbarButton
                 sx={{
-                  bacgroundColor: (theme) => theme.palette.background.paper,
+                  bacgroundColor: (theme) => theme.palette.background.default,
                   color: (theme) =>
                     theme.palette.mode === "light"
-                      ? theme.palette.common.black
+                      ? theme.palette.common.white
                       : theme.palette.common.white,
                 }}
                 onClick={() => toggleNav()}
@@ -194,7 +204,8 @@ function NavBar() {
                     justifyContent: "center",
                     position: "relative",
                     display: "flex",
-                    backgroundColor: (theme) => theme.palette.background.paper,
+                    backgroundColor: (theme) =>
+                      theme.palette.background.default,
                     clipPath:
                       "polygon(0 0, 0% 20%, 0 45%, 0 40%, 23% 100%, 51% 100%, 80% 100%, 100% 43%, 100% 44%, 100% 20%, 100% 0, 41% 0)",
                   }}
@@ -298,11 +309,15 @@ const shareIconStyles = {
   borderRadius: "100%",
 };
 
-const MenuList = styled("ul")({
+const MenuList = styled("ul")(({ theme }: { theme: Theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
   userSelect: "none",
+  color:
+    theme.palette.mode === "dark"
+      ? theme.palette.common.white
+      : theme.palette.common.white,
   gap: 10,
   li: {
     listStyle: "none",
@@ -317,7 +332,7 @@ const MenuList = styled("ul")({
       opacity: 0.5,
     },
   },
-});
+}));
 
 const NavbarButton = styled(Box)({
   height: 15,
@@ -354,7 +369,7 @@ const NavBarContainer = styled("nav")(({ theme }: { theme: Theme }) => ({
   top: 0,
   right: 0,
   left: 0,
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: theme.palette.background.default,
   position: "absolute",
   height: 10,
   zIndex: 1,

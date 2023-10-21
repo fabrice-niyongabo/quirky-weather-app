@@ -1,21 +1,17 @@
-import { Button, Theme, Typography, styled, useTheme } from "@mui/material";
+import { Theme, Typography, styled, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/reducers";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import {
-  setRwandanCity,
-  setRwandanCityImages,
-  setSwedenCity,
-  setSwedenCityImages,
-} from "../../../redux/actions/app";
+
 import SwithCity from "./switch-city";
 import Weather from "../weather";
 import Joke from "../../../components/joke";
 import { cityTpe } from "../../../interfaces";
-import { toastMessage } from "../../../helpers";
 import { isMobile } from "react-device-detect";
-import { THEME_COLORS } from "../../../constants";
+import {
+  RWANDAN_FLAG_COLORS,
+  SWEDEN_FLAG_COLORS,
+  THEME_COLORS,
+} from "../../../constants";
 
 interface IProps {
   cityName: string | undefined;
@@ -23,107 +19,36 @@ interface IProps {
   mobileBgColor: string;
 }
 function City(props: IProps) {
-  const dispatch = useDispatch();
-  const { rwandanCity, swedenCity, rwandanCityImages, swedenCityImages } =
-    useSelector((state: RootState) => state.appReducer);
-
   const [showModal, setShowModal] = useState(false);
 
   const theme = useTheme();
 
-  //background image state
-  let currentImageIndex = 0;
-  const fallbackImage = require("../../../assets/clouds.gif");
-  const defaultImage =
-    props.cityType === "Rwandan"
-      ? rwandanCityImages.length > 0
-        ? rwandanCityImages[0].urls.small
-        : fallbackImage
-      : swedenCityImages.length > 0
-      ? swedenCityImages[0].urls.small
-      : fallbackImage;
-  const [backgroundImage, setBackgroundImage] = useState(defaultImage);
-  const currentCityImages =
-    props.cityType === "Rwandan" ? rwandanCityImages : swedenCityImages;
-
-  useEffect(() => {
-    if (!props.cityName) return;
-    //fetching images only if city in the params is defferent from the one in the store
-
-    if (props.cityType === "Rwandan") {
-      if (rwandanCity !== props.cityName) {
-        setBackgroundImage(fallbackImage);
-        dispatch(setRwandanCity(props.cityName));
-        fetchCityImages();
-      } else if (rwandanCityImages.length === 0) {
-        fetchCityImages();
-      }
-    } else {
-      if (swedenCity !== props.cityName) {
-        setBackgroundImage(fallbackImage);
-        dispatch(setSwedenCity(props.cityName));
-        fetchCityImages();
-      } else if (swedenCityImages.length === 0) {
-        fetchCityImages();
-      }
-    }
-  }, [props.cityName]);
-
+  //background color state
+  let currentBgColorIndex = 0;
+  const bgColorsToUse =
+    props.cityType === "Rwandan" ? RWANDAN_FLAG_COLORS : SWEDEN_FLAG_COLORS;
+  const [backGroundColor, setBackGroundColor] = useState(bgColorsToUse[0]);
   //image interval
   useEffect(() => {
     const interval = setInterval(() => {
-      if (currentCityImages.length > 0) {
-        currentImageIndex += 1;
-        if (currentCityImages[currentImageIndex]) {
-          setBackgroundImage(currentCityImages[currentImageIndex].urls.small);
-        } else {
-          setBackgroundImage(currentCityImages[0].urls.small);
-          currentImageIndex = 0;
-        }
+      currentBgColorIndex += 1;
+      if (bgColorsToUse[currentBgColorIndex]) {
+        setBackGroundColor(bgColorsToUse[currentBgColorIndex]);
+      } else {
+        setBackGroundColor(bgColorsToUse[0]);
+        currentBgColorIndex = 0;
       }
-    }, 7000);
+    }, 10000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [currentCityImages]);
+  }, []);
 
-  const fetchCityImages = async () => {
-    try {
-      if (isMobile) {
-        return;
-      }
-      const imageReq = await fetch(
-        `https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_UN_SPLASH_ACCESS_KEY}&query=${props.cityName}`
-      );
-      const response = await imageReq.json();
-      if (response?.results) {
-        if (response.results.length > 0) {
-          setBackgroundImage(response.results[0].urls.small);
-        }
-        if (props.cityType === "Rwandan") {
-          dispatch(setRwandanCityImages(response.results));
-        } else {
-          dispatch(setSwedenCityImages(response.results));
-        }
-      } else {
-        if (props.cityType === "Rwandan") {
-          dispatch(setRwandanCityImages([]));
-        } else {
-          dispatch(setSwedenCityImages([]));
-        }
-      }
-    } catch (error) {
-      //error while fetching city images
-      console.log({ error });
-      toastMessage("error", JSON.stringify(error));
-    }
-  };
   return (
     <CountryContainer
       style={{
-        backgroundImage: isMobile ? "" : `url(${backgroundImage})`,
-        backgroundColor: isMobile ? props.mobileBgColor : "",
+        backgroundColor: isMobile ? props.mobileBgColor : backGroundColor,
       }}
     >
       <CountryContentsWrapper>

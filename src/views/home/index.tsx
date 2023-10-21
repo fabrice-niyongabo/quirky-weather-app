@@ -119,7 +119,8 @@ const StyledTypograph = styled(Typography)(({ theme }: { theme: Theme }) => ({
 
 const StyledCard = styled("div")(({ theme }: { theme: Theme }) => ({
   padding: "5rem",
-  backgroundColor: "rgba(255,255,255,0.5)",
+  // backgroundColor: "rgba(255,255,255,0.5)",
+  backgroundColor: theme.palette.common.white,
   borderRadius: "10px",
   [theme.breakpoints.down("md")]: {
     padding: "2rem",

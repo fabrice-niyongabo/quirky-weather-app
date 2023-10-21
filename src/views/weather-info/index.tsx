@@ -60,7 +60,13 @@ function WeatherInfo() {
         />
       </WeatherInfoGrid>
       {isMobile && (
-        <Paper>
+        <Paper
+          sx={{
+            background: theme.palette.background.default,
+            color: theme.palette.common.white,
+            borderRadius: 0,
+          }}
+        >
           <Joke />
         </Paper>
       )}

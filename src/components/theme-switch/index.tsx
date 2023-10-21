@@ -20,7 +20,7 @@ function ThemeSwitchButton() {
             onClick={() => toggleTheme()}
           />
         }
-        label="Dark Mode"
+        label="Rwandan theme"
       />
     </FormGroup>
   );
